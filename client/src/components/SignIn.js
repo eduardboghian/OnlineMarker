@@ -37,7 +37,7 @@ export default function SignIn() {
       password: pass
     })
       .then(res => {
-        localStorage.setItem('token', res.headers.authtoken)
+        localStorage.setItem('token-market', res.headers.authtoken)
         window.location.href = '/'
       })
       .catch(err => console.error(err))

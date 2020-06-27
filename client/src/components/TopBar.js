@@ -1,44 +1,32 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React from 'react'
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
-import Search from './Search'
-import CardItem from './Card';
-import Categories from './Categories'
-import '../../css/Home.css'
+import '../css/Home.css'
 
-function LinkTab(props) {
-  return (
-    <Tab
-      component="a"
-      onClick={(event) => {
-        event.preventDefault();
-        window.location.href = props.href
-      }}
-      {...props}
-    />
-  );
-}
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
-  },
-}));
-
-export default function NavTabs() {
-  const classes = useStyles();
+export default function TopBar() {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  function LinkTab(props) {
+    return (
+      <Tab
+        component="a"
+        onClick={(event) => {
+          event.preventDefault();
+          window.location.href = props.href
+        }}
+        {...props}
+      />
+    );
+  }
+
   return (
-    <div className={classes.root}>
+    <div>
       <div className="logo">Logo.</div>
       <AppBar position="static" style={{ paddingLeft: '50%', paddingRight: '10%', boxShadow: 'none !important' }}>
         {!localStorage.getItem('token-market') ?
@@ -65,14 +53,6 @@ export default function NavTabs() {
           </Tabs>
         }
       </AppBar>
-      <Search />
-      <Categories />
-      <div className="home-wr">
-        <CardItem />
-        <CardItem />
-        <CardItem />
-        <CardItem />
-      </div>
     </div>
-  );
+  )
 }

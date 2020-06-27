@@ -25,6 +25,7 @@ router.post('/login', async (req, res) => {
 
 router.post('/register', async (req, res) => {
   const userData = { ...req.body.userData }
+  userData.username = userData.firstName + ' ' + userData.lastName
 
   const check = await User.findOne({ email: userData.email })
   if (check) return res.status(400).send('Email already registrated')
@@ -36,13 +37,13 @@ router.post('/register', async (req, res) => {
   let newUser = new User(userData)
   newUser = await newUser.save()
 
-  res.send(newUser)
+  res.status(200).send(newUser)
 })
 
-router.post('/getinfo', async (req, res) => {
-  const token = req.body.token
-  const decoded = jwt.verify(token, process.env.TOKEN_SECRET)
-  res.send(decoded)
-})
+// router.post('/getinfo', async (req, res) => {
+//   const token = req.body.token
+//   const decoded = jwt.verify(token, process.env.TOKEN_SECRET)
+//   res.send(decoded)
+// })
 
 module.exports = router

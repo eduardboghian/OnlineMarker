@@ -1,0 +1,9 @@
+.add_product-wr {
+  background-color: #f2f3f4; 
+  height: 100vh;
+  overflow: hidden;
+}
+
+.add_product-form {
+  margin-left: 40%;
+}

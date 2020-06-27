@@ -1,0 +1,7 @@
+.suggestions {
+  width: 100%;
+  height: 500px;
+  position: absolute;
+  z-index: 1;
+  overflow-y: scroll;
+}

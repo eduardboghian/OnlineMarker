@@ -41,19 +41,23 @@ if (process.env.NODE_ENV === 'production') {
 
 // CLUSTER CONFIGURATION
 
-if (cluster.isMaster) {
-  console.log(`Master ${process.pid} is running`)
-  db.on('error', console.error.bind(console, 'MongoDB connection error:'))
+// if (cluster.isMaster) {
+//   console.log(`Master ${process.pid} is running`)
+//   db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 
-  for (let i = 0; i < 3; i++) {
-    cluster.fork()
-  }
+//   for (let i = 0; i < 3; i++) {
+//     cluster.fork()
+//   }
 
-  cluster.on('exit', worker => {
-    console.log(`worker ${worker.process.pid} died`)
-  })
-} else {
-  app.listen(apiPort)
+//   cluster.on('exit', worker => {
+//     console.log(`worker ${worker.process.pid} died`)
+//   })
+// } else {
+//   app.listen(apiPort)
 
-  console.log(`Worker ${process.pid} started`)
-}
+//   console.log(`Worker ${process.pid} started`)
+// }
+
+let server = app.listen(apiPort, () => console.log(`app running on port ${apiPort}...`))
+
+module.exports = server
