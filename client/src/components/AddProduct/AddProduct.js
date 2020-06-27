@@ -44,81 +44,131 @@ export default function AddProduct() {
     <div className='add_product-wr'>
       <TopBar />
 
+      <h1 style={{ margin: '25px 15%' }}>Adauga Anunt</h1>
+
       <div className="add_product-form">
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <div className={classes.paper}>
-            <form className={classes.form} noValidate>
-              <Grid container spacing={2}>
+        <h2>Titlu</h2>
+        <Grid item xs={6}>
+          <TextField
+            variant="outlined"
+            required
+            fullWidth
+            id="title"
+            autoFocus
+            label="Titlul Anuntului"
+            name="title"
+            onChange={e => setUserData({ ...userData, [e.target.name]: e.target.value })}
+            autoComplete="title"
+          />
+        </Grid>
 
-                <Grid item xs={12}>
-                  <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="title"
-                    autoFocus
-                    label="Titlul Anuntului"
-                    name="title"
-                    onChange={e => setUserData({ ...userData, [e.target.name]: e.target.value })}
-                    autoComplete="title"
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="description"
-                    label="Decrierea Anuntului"
-                    name="description"
-                    onChange={e => setUserData({ ...userData, [e.target.name]: e.target.value })}
-                    autoComplete="description"
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="price"
-                    label="Pret"
-                    name="price"
-                    onChange={e => setUserData({ ...userData, [e.target.name]: e.target.value })}
-                    autoComplete="price"
-                  />
-                </Grid>
+        <Grid item xs={4} style={{ marginTop: '30px' }}>
+          <TextField
+            variant="outlined"
+            required
+            fullWidth
+            id="title"
+            label="Categoria"
+            name="title"
+            onChange={e => setUserData({ ...userData, [e.target.name]: e.target.value })}
+            autoComplete="title"
+          />
+        </Grid>
 
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    autoComplete="fname"
-                    name="firstName"
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="firstName"
-                    label="First Name"
-                    onChange={e => setUserData({ ...userData, [e.target.name]: e.target.value })}
-                  />
-                </Grid>
-
-              </Grid>
-              <Button
-                style={{ height: '50px' }}
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-                onClick={e => { }}
-              >
-                Adauga Anunt
-              </Button>
-              <Location />
-            </form>
-          </div>
-        </Container>
+        <Grid item xs={4} style={{ marginTop: '30px' }}>
+          <TextField
+            variant="outlined"
+            required
+            fullWidth
+            id="title"
+            label="Pret"
+            name="title"
+            onChange={e => setUserData({ ...userData, [e.target.name]: e.target.value })}
+            autoComplete="title"
+          />
+        </Grid>
       </div>
+
+      <div className="add_product-form" style={{ marginTop: '30px' }}>
+        <h2>Descriere</h2>
+        <Grid item xs={7} style={{ heigth: '300px' }}>
+          <TextField
+            variant="outlined"
+            required
+            fullWidth
+            id="title"
+            multiline={true}
+            rows={15}
+            label="Descriere"
+            name="title"
+            onChange={e => setUserData({ ...userData, [e.target.name]: e.target.value })}
+            autoComplete="title"
+          />
+        </Grid>
+        <p>Maxim 9000 de caractere *</p>
+      </div>
+
+      <div className="add_product-form" style={{ marginTop: '30px', height: '350px' }}>
+        <h2>Fotografii</h2>
+
+      </div>
+
+      <div className="add_product-form" style={{ marginTop: '30px' }}>
+        <h2>Date de contact</h2>
+        <Grid item xs={5} style={{ marginTop: '30px' }}>
+          <TextField
+            variant="outlined"
+            required
+            fullWidth
+            id="title"
+            label="Oras sau localitate"
+            name="title"
+            onChange={e => setUserData({ ...userData, [e.target.name]: e.target.value })}
+            autoComplete="title"
+          />
+        </Grid>
+
+        <Grid item xs={5} style={{ marginTop: '30px' }}>
+          <TextField
+            variant="outlined"
+            required
+            fullWidth
+            id="title"
+            label="Adresa de email"
+            name="title"
+            onChange={e => setUserData({ ...userData, [e.target.name]: e.target.value })}
+            autoComplete="title"
+          />
+        </Grid>
+
+        <Grid item xs={5} style={{ marginTop: '30px' }}>
+          <TextField
+            variant="outlined"
+            required
+            fullWidth
+            id="title"
+            label="Numar de telefon"
+            name="title"
+            onChange={e => setUserData({ ...userData, [e.target.name]: e.target.value })}
+            autoComplete="title"
+          />
+        </Grid>
+      </div>
+
+      <div className="add_product-form" style={{ marginTop: '30px' }}>
+        <Button
+          style={{ height: '45px', width: '20%', margin: '0 40%' }}
+          type="submit"
+          size='large'
+          variant="contained"
+          color="primary"
+          className={classes.submit}
+          onClick={e => { }}
+        >
+          Adauga Anunt
+        </Button>
+      </div>
+
     </div>
   )
 }
