@@ -1,20 +1,28 @@
 import React, { useState, useEffect } from 'react'
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import TopBar from '../TopBar'
 
-import AddCurrency from './SelectCurrency'
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import Tab from '@material-ui/core/Tab';
+import HomeIcon from '@material-ui/icons/Home';
+import DriveEtaIcon from '@material-ui/icons/DriveEta';
+import AppsIcon from '@material-ui/icons/Apps';
+import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
+import FaceIcon from '@material-ui/icons/Face';
+import SportsSoccerIcon from '@material-ui/icons/SportsSoccer';
+import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
+import PetsIcon from '@material-ui/icons/Pets';
+
+import axios from 'axios'
+import jwt from 'jsonwebtoken'
+
 import '../../css/AddProduct.css'
-import Location from '../Location';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -34,15 +42,27 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-}));
+}))
 
 export default function AddProduct() {
   const classes = useStyles();
-  const [userData, setUserData] = useState({})
+  const [newProduct, setNewProduct] = useState({
+    category: ''
+  })
+
+  const handleSubmit = () => {
+    let userData = jwt.verify(localStorage.getItem('token-market'), 'jwtSecret')
+    setNewProduct({ ...newProduct, userId: userData._id })
+    setNewProduct({ ...newProduct, username: userData.name })
+
+    axios.post('/api/product/add', { product: newProduct })
+      .then(res => console.log(res.data))
+      .then(err => console.error(err))
+  }
 
   return (
     <div className='add_product-wr'>
-      <TopBar />
+      <TopBar tab={2} />
 
       <h1 style={{ margin: '25px 15%' }}>Adauga Anunt</h1>
 
@@ -53,38 +73,49 @@ export default function AddProduct() {
             variant="outlined"
             required
             fullWidth
-            id="title"
+            id="name"
             autoFocus
             label="Titlul Anuntului"
-            name="title"
-            onChange={e => setUserData({ ...userData, [e.target.name]: e.target.value })}
+            name="name"
+            onChange={e => { setNewProduct({ ...newProduct, [e.target.name]: e.target.value }) }}
             autoComplete="title"
           />
         </Grid>
+
+        <FormControl variant="outlined" className={classes.formControl} style={{ marginTop: '30px', width: '390px', backgroundColor: '#f4f4f4' }}>
+          <InputLabel style={{ backgroundColor: '#f4f4f4' }} id="demo-simple-select-outlined-label">Alege Categoria</InputLabel>
+          <Select
+            labelId="demo-simple-select-outlined-label"
+            id="demo-simple-select-outlined"
+            value={newProduct.category}
+            name='category'
+            onChange={e => setNewProduct({ ...newProduct, [e.target.name]: e.target.value })}
+            label="Alege Categoria"
+          >
+            <MenuItem value="" style={{ height: '55px', textAlign: 'center' }}>
+              <p style={{ textAlign: 'center', width: '100%' }} >None</p>
+            </MenuItem>
+            <MenuItem value={'Toate'}><Tab style={{ marginLeft: '100px' }} label="Toate" icon={<AppsIcon />} /></MenuItem>
+            <MenuItem value={'Imobiliare'}><Tab style={{ marginLeft: '100px' }} label="Imobiliare" icon={<HomeIcon />} /></MenuItem>
+            <MenuItem value={'Automobile'}><Tab style={{ marginLeft: '100px' }} label="Automobile" icon={<DriveEtaIcon />} /></MenuItem>
+            <MenuItem value={'Electronice'}><Tab style={{ marginLeft: '100px' }} label="Electronice" icon={<PhoneIphoneIcon />} /></MenuItem>
+            <MenuItem value={'Moda-Frumusete'}><Tab style={{ marginLeft: '100px' }} label="Moda-Frumusete" icon={<FaceIcon />} /></MenuItem>
+            <MenuItem value={'Sport-Hobby'}><Tab style={{ marginLeft: '100px' }} label="Sport-Hobby" icon={<SportsSoccerIcon />} /></MenuItem>
+            <MenuItem value={'Servicii-Afaceri'}><Tab style={{ marginLeft: '100px' }} label="Servicii-Afaceri" icon={<BusinessCenterIcon />} /></MenuItem>
+            <MenuItem value={'Animale'}><Tab style={{ marginLeft: '100px' }} label="Animale" icon={<PetsIcon />} /></MenuItem>
+          </Select>
+        </FormControl>
 
         <Grid item xs={4} style={{ marginTop: '30px' }}>
           <TextField
             variant="outlined"
             required
             fullWidth
-            id="title"
-            label="Categoria"
-            name="title"
-            onChange={e => setUserData({ ...userData, [e.target.name]: e.target.value })}
-            autoComplete="title"
-          />
-        </Grid>
-
-        <Grid item xs={4} style={{ marginTop: '30px' }}>
-          <TextField
-            variant="outlined"
-            required
-            fullWidth
-            id="title"
+            id="price"
             label="Pret"
-            name="title"
-            onChange={e => setUserData({ ...userData, [e.target.name]: e.target.value })}
-            autoComplete="title"
+            name="price"
+            onChange={e => setNewProduct({ ...newProduct, [e.target.name]: e.target.value })}
+            autoComplete="price"
           />
         </Grid>
       </div>
@@ -96,13 +127,13 @@ export default function AddProduct() {
             variant="outlined"
             required
             fullWidth
-            id="title"
+            id="shortDescription"
             multiline={true}
             rows={15}
             label="Descriere"
-            name="title"
-            onChange={e => setUserData({ ...userData, [e.target.name]: e.target.value })}
-            autoComplete="title"
+            name="shortDescription"
+            onChange={e => setNewProduct({ ...newProduct, [e.target.name]: e.target.value })}
+            autoComplete="shortDescription"
           />
         </Grid>
         <p>Maxim 9000 de caractere *</p>
@@ -120,11 +151,11 @@ export default function AddProduct() {
             variant="outlined"
             required
             fullWidth
-            id="title"
+            id="location"
             label="Oras sau localitate"
-            name="title"
-            onChange={e => setUserData({ ...userData, [e.target.name]: e.target.value })}
-            autoComplete="title"
+            name="location"
+            onChange={e => setNewProduct({ ...newProduct, [e.target.name]: e.target.value })}
+            autoComplete="location"
           />
         </Grid>
 
@@ -133,11 +164,11 @@ export default function AddProduct() {
             variant="outlined"
             required
             fullWidth
-            id="title"
+            id="email"
             label="Adresa de email"
             name="title"
-            onChange={e => setUserData({ ...userData, [e.target.name]: e.target.value })}
-            autoComplete="title"
+            onChange={e => setNewProduct({ ...newProduct, [e.target.name]: e.target.value })}
+            autoComplete="email"
           />
         </Grid>
 
@@ -146,11 +177,11 @@ export default function AddProduct() {
             variant="outlined"
             required
             fullWidth
-            id="title"
+            id="phone"
             label="Numar de telefon"
-            name="title"
-            onChange={e => setUserData({ ...userData, [e.target.name]: e.target.value })}
-            autoComplete="title"
+            name="phone"
+            onChange={e => setNewProduct({ ...newProduct, [e.target.name]: e.target.value })}
+            autoComplete="phone"
           />
         </Grid>
       </div>
@@ -163,7 +194,7 @@ export default function AddProduct() {
           variant="contained"
           color="primary"
           className={classes.submit}
-          onClick={e => { }}
+          onClick={e => handleSubmit(e)}
         >
           Adauga Anunt
         </Button>

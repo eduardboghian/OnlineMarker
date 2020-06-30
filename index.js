@@ -25,7 +25,10 @@ app.get('/api', (req, res) => {
 // ROUTES
 
 const auth = require('./routes/auth')
+const product = require('./routes/product')
 app.use('/api', auth)
+app.use('/api/product', product)
+
 // CONNECT DB
 
 const db = require('./db')

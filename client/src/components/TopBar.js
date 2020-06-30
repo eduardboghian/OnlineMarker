@@ -5,10 +5,11 @@ import Tab from '@material-ui/core/Tab';
 
 import '../css/Home.css'
 
-export default function TopBar() {
-  const [value, setValue] = React.useState(0);
+export default function TopBar(props) {
+  const [value, setValue] = React.useState(props.tab);
 
   const handleChange = (event, newValue) => {
+    console.log(newValue)
     setValue(newValue);
   };
 
@@ -49,7 +50,7 @@ export default function TopBar() {
             <LinkTab label="Home" href="/" />
             <LinkTab label="Messages" href="/sign-in" />
             <LinkTab label="Add Product" href="/add-product" />
-            <LinkTab label="Edi Boghian" href="/sign-up" />
+            <LinkTab label="Edi Boghian" href="#" />
           </Tabs>
         }
       </AppBar>
