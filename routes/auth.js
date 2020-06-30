@@ -40,10 +40,4 @@ router.post('/register', async (req, res) => {
   res.status(200).send(newUser)
 })
 
-// router.post('/getinfo', async (req, res) => {
-//   const token = req.body.token
-//   const decoded = jwt.verify(token, process.env.TOKEN_SECRET)
-//   res.send(decoded)
-// })
-
 module.exports = router
