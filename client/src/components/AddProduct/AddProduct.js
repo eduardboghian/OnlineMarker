@@ -24,37 +24,26 @@ import jwt from 'jsonwebtoken'
 
 import '../../css/AddProduct.css'
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}))
-
 export default function AddProduct() {
   const classes = useStyles();
   const [newProduct, setNewProduct] = useState({
     category: ''
   })
 
-  const handleSubmit = () => {
+  useEffect(() => {
     let userData = jwt.verify(localStorage.getItem('token-market'), 'jwtSecret')
-    setNewProduct({ ...newProduct, userId: userData._id })
-    setNewProduct({ ...newProduct, username: userData.name })
+    setNewProduct({
+      category: '',
+      userId: userData._id,
+      username: userData.name
+    })
+  }, [])
 
+  useEffect(() => {
+    console.log(newProduct)
+  }, [newProduct])
+
+  const handleSubmit = () => {
     axios.post('/api/product/add', { product: newProduct })
       .then(res => console.log(res.data))
       .then(err => console.error(err))
@@ -203,3 +192,24 @@ export default function AddProduct() {
     </div>
   )
 }
+
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}))
