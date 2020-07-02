@@ -39,18 +39,19 @@ export default function NavTabs() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0)
   const [userData, setUserData] = useState({})
-  const [product, setProduct] = useState({})
+  const [products, setProducts] = useState([])
+  const [showButton, setButton] = useState(false)
 
-  useEffect(() =>{
+  useEffect(() => {
     axios.get('/api/product/get')
-    .then(res => console.log(res.data))
-    .catch(err => console.error(err))
+      .then(res => setProducts(res.data))
+      .catch(err => console.error(err))
   }, [])
 
   useEffect(() => {
     if (localStorage.getItem('token-market')) {
       let data = jwt.verify(localStorage.getItem('token-market'), 'jwtSecret')
-      setUserData({...userData, name: data.name})
+      setUserData({ ...userData, name: data.name })
     }
   }, [])
 
@@ -65,7 +66,7 @@ export default function NavTabs() {
   return (
     <div className={classes.root}>
       <div className="logo">Logo.</div>
-      <AppBar position="static" style={{ paddingLeft: '50%', paddingRight: '10%', boxShadow: 'none !important' }}>
+      <AppBar position="static" style={{ paddingLeft: '50%', paddingRight: '10%', boxShadow: 'none !important', display: 'none' }}>
         {!localStorage.getItem('token-market') ?
           <Tabs
             variant="fullWidth"
@@ -86,25 +87,33 @@ export default function NavTabs() {
             <LinkTab label="Home" href="/" />
             <LinkTab label="Messages" href="/sign-in" />
             <LinkTab label="Add Product" href="/add-product" />
-            <Select
-              label={userData.name}
-            >
-              <MenuItem value="" style={{ height: '55px', textAlign: 'center' }}>
-                <p style={{ textAlign: 'center', width: '100%' }} onClick={e => handleLogout(e)}>Sign Out</p>
-              </MenuItem>
-            </Select>
-            //<LinkTab label={userData.name} href="/sign-up" />
+            <LinkTab label={userData.name} href="#" onClick={e => setButton(!showButton)} />
           </Tabs>
         }
       </AppBar>
       <Search />
       <Categories />
       <div className="home-wr">
-        <CardItem />
-        <CardItem />
-        <CardItem />
-        <CardItem />
+        {
+          products.map((prod, i) => {
+            return <CardItem data={prod} key={i} />
+          })
+        }
       </div>
     </div>
   );
 }
+
+
+
+// <p style={showButton ?
+//   {
+//     textAlign: 'center',
+//     width: '15%',
+//     position: 'absolute',
+//     top: '40px',
+//     left: '80%',
+//     backgroundColor: '#f4f4f4',
+//     zIndex: '1',
+//     height: '50px'
+//   } : { display: 'none' }} onClick={e => handleLogout(e)}>Sign Out</p>
