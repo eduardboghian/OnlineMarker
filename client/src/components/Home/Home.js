@@ -38,14 +38,16 @@ export default function NavTabs() {
   const [userData, setUserData] = useState({})
   const [products, setProducts] = useState([])
   const [showButton, setButton] = useState(false)
+  const [filtrated, setFilt] = useState([])
 
   useEffect(() => {
     axios.get('/api/product/get')
-      .then(res => setProducts(res.data))
+      .then(res => {
+        setProducts(res.data)
+        setFilt(res.data)
+      })
       .catch(err => console.error(err))
-  }, [])
 
-  useEffect(() => {
     if (localStorage.getItem('token-market')) {
       let data = jwt.verify(localStorage.getItem('token-market'), 'jwtSecret')
       setUserData({ ...userData, name: data.name })
@@ -59,6 +61,13 @@ export default function NavTabs() {
   const handleLogout = () => {
     localStorage.removeItem('token-market')
   };
+
+  const filterCards = (filter) => {
+    let prods = [...products]
+    prods = prods.filter(item => item.category === filter)
+    setFilt(prods)
+    if (filter === '') setFilt(products)
+  }
 
   return (
     <div className={classes.root}>
@@ -89,10 +98,10 @@ export default function NavTabs() {
         }
       </AppBar>
       <Search />
-      <Categories />
+      <Categories filterCards={filterCards} />
       <div className="home-wr">
         {
-          products.map((prod, i) => {
+          filtrated.map((prod, i) => {
             return <CardItem data={prod} key={i} />
           })
         }

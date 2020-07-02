@@ -3,7 +3,6 @@ const router = require('express').Router()
 const { Product } = require('../models/product')
 
 router.post('/add', async (req, res) => {
-
   let product = new Product(req.body.product)
   product = await product.save()
 
@@ -11,9 +10,7 @@ router.post('/add', async (req, res) => {
 })
 
 router.get('/get', async (req, res) => {
-
   let product = await Product.find()
-  console.log(product)
 
   res.send(product)
 })

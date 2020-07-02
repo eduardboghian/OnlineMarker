@@ -27,7 +27,7 @@ export default function CardItem(props) {
   };
 
   return (
-    <Card className={classes.root} style={{ width: '21%', margin: '0 2%' }}>
+    <Card className={classes.root} style={{ margin: '20px' }}>
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
@@ -48,7 +48,7 @@ export default function CardItem(props) {
         title="Paella dish"
       />
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
+        <Typography variant="body2" color="textSecondary" component="p" style={{ height: '50px' }}>
           {props.data.shortDescription}
         </Typography>
       </CardContent>

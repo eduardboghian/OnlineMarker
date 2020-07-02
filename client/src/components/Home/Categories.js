@@ -47,11 +47,11 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     width: '80%',
     margin: '0 10%',
-    backgroundColor: 'white',
+    backgroundColor: '#fff',
   },
 }));
 
-export default function Categories() {
+export default function Categories(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -61,7 +61,7 @@ export default function Categories() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default">
+      <AppBar position="static" color="transparent" shadow='none'>
         <Tabs
           value={value}
           onChange={handleChange}
@@ -71,14 +71,14 @@ export default function Categories() {
           scrollButtons="auto"
           aria-label="scrollable auto tabs example"
         >
-          <Tab label="Toate" icon={<AppsIcon />} />
-          <Tab label="Imobiliare" icon={<HomeIcon />} />
-          <Tab label="Automobile" icon={<DriveEtaIcon />} />
-          <Tab label="Electronice" icon={<PhoneIphoneIcon />} />
-          <Tab label="Moda-Frumusete" icon={<FaceIcon />} />
-          <Tab label="Sport-Hobby" icon={<SportsSoccerIcon />} />
-          <Tab label="Servicii-Afaceri" icon={<BusinessCenterIcon />} />
-          <Tab label="Animale" icon={<PetsIcon />} />
+          <Tab label="Toate" icon={<AppsIcon />} onClick={e => props.filterCards('')} />
+          <Tab label="Imobiliare" icon={<HomeIcon />} onClick={e => props.filterCards('Imobiliare')} />
+          <Tab label="Automobile" icon={<DriveEtaIcon />} onClick={e => props.filterCards('Automobile')} />
+          <Tab label="Electronice" icon={<PhoneIphoneIcon onClick={e => props.filterCards('Electronice')} />} />
+          <Tab label="Moda-Frumusete" icon={<FaceIcon />} onClick={e => props.filterCards('Moda-Frumusete')} />
+          <Tab label="Sport-Hobby" icon={<SportsSoccerIcon />} onClick={e => props.filterCards('Sport-Hobby')} />
+          <Tab label="Servicii-Afaceri" icon={<BusinessCenterIcon onClick={e => props.filterCards('Servicii-Afaceri')} />} />
+          <Tab label="Animale" icon={<PetsIcon />} onClick={e => props.filterCards('Animale')} />
         </Tabs>
       </AppBar>
     </div>
