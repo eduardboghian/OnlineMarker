@@ -3,7 +3,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import jwt from 'jsonwebtoken'
 
@@ -13,10 +12,10 @@ export default function TopBar(props) {
   const [value, setValue] = React.useState(props.tab);
   const [userData, setUserData] = useState({})
 
-  useEffect(() =>{
-    if(localStorage.getItem('token-market')) {
+  useEffect(() => {
+    if (localStorage.getItem('token-market')) {
       let data = jwt.verify(localStorage.getItem('token-market'), 'jwtSecret')
-      setUserData({...userData, name: data.name})
+      setUserData({ ...userData, name: data.name })
     }
   }, [])
 

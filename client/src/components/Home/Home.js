@@ -3,9 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import jwt from 'jsonwebtoken'
 
 import Search from './Search'
@@ -66,7 +63,7 @@ export default function NavTabs() {
   return (
     <div className={classes.root}>
       <div className="logo">Logo.</div>
-      <AppBar position="static" style={{ paddingLeft: '50%', paddingRight: '10%', boxShadow: 'none !important', display: 'none' }}>
+      <AppBar position="static" style={{ paddingLeft: '50%', paddingRight: '10%', boxShadow: 'none !important' }}>
         {!localStorage.getItem('token-market') ?
           <Tabs
             variant="fullWidth"
