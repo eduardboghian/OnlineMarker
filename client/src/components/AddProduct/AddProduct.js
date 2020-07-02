@@ -43,6 +43,7 @@ export default function AddProduct() {
     axios.post('/api/product/add', { product: newProduct })
       .then(res => console.log(res.data))
       .then(err => console.error(err))
+    window.location.href = '/'
   }
 
   return (

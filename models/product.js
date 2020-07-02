@@ -8,6 +8,7 @@ const productSchema = new mongoose.Schema({
   phone: String,
   promovated: String,
   name: String,
+  username: String,
   price: String,
   picture: String,
   shortDescription: String,

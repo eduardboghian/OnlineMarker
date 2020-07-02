@@ -12,6 +12,8 @@ import Search from './Search'
 import CardItem from './Card';
 import Categories from './Categories'
 import '../../css/Home.css'
+import axios from 'axios'
+
 
 function LinkTab(props) {
   return (
@@ -37,6 +39,13 @@ export default function NavTabs() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0)
   const [userData, setUserData] = useState({})
+  const [product, setProduct] = useState({})
+
+  useEffect(() =>{
+    axios.get('/api/product/get')
+    .then(res => console.log(res.data))
+    .catch(err => console.error(err))
+  }, [])
 
   useEffect(() => {
     if (localStorage.getItem('token-market')) {
