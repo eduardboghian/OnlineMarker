@@ -57,7 +57,7 @@ export default function CardItem(props) {
           <LocationOnIcon />
         </IconButton>
         <Typography style={{ opacity: '.6' }} > {props.data.location} </Typography>
-        <Typography style={{ opacity: '.6', marginLeft: '20%' }} > {props.data.price}</Typography>
+        <Typography style={{ opacity: '.6', marginLeft: '20%', fontSize: '15px' }} > {props.data.price} EUR</Typography>
       </CardActions>
     </Card>
   );
