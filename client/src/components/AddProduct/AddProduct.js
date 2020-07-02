@@ -39,10 +39,6 @@ export default function AddProduct() {
     })
   }, [])
 
-  useEffect(() => {
-    console.log(newProduct)
-  }, [newProduct])
-
   const handleSubmit = () => {
     axios.post('/api/product/add', { product: newProduct })
       .then(res => console.log(res.data))
