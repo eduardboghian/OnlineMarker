@@ -18,7 +18,7 @@ import axios from 'axios'
 export default function CardItem(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-  const [file, setFile] = useState({})
+  const [file, setFile] = useState()
 
   useEffect(() => {
     axios.get(`/api/product/image/e363c94118886050b43d4714a80b7539.png`)
@@ -49,7 +49,7 @@ export default function CardItem(props) {
         title={props.data.name}
         subheader={moment(props.data.date).format('YYYY MMMM DD')}
       />
-      <img src={`image/${file.filename}`} width="250" alt="" className="img-responsive"></img>
+      <img src={`/api/product/image/e363c94118886050b43d4714a80b7539.png`} width="250" alt="" className="img-responsive"></img>
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p" style={{ height: '50px' }}>
           {props.data.shortDescription}
