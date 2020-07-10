@@ -46,6 +46,11 @@ export default function AddProduct() {
     window.location.href = '/'
   }
 
+  function readSingleFile(e) {
+    const name = e[0].name;
+    document.getElementById("file-label").textContent = name;
+  }
+
   return (
     <div className='add_product-wr'>
       <TopBar tab={2} />
@@ -127,7 +132,17 @@ export default function AddProduct() {
 
       <div className="add_product-form" style={{ marginTop: '30px', height: '350px' }}>
         <h2>Fotografii</h2>
-
+        <Grid item xs={7} style={{ heigth: '300px' }}>
+          <div className='form-wr'>
+            <form action="/api/product/upload" method="POST" encType="multipart/form-data">
+              <div className="custom-file mb-3">
+                <input type="file" className="custom-file-input" name="file" id="file1" onChange={e => readSingleFile(e.target.files)} />
+                <label className="custom-file-label" htmlFor="file1" id="file-label">Choose file</label>
+              </div>
+              <input type="submit" value="Submit" className="btn btn-primary btn-block" />
+            </form>
+          </div>
+        </Grid>
       </div>
 
       <div className="add_product-form" style={{ marginTop: '30px' }}>

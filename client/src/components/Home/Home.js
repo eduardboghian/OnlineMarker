@@ -39,6 +39,7 @@ export default function NavTabs() {
   const [products, setProducts] = useState([])
   const [showButton, setButton] = useState(false)
   const [filtrated, setFilt] = useState([])
+  const [filterValue, setFilter] = useState('')
 
   useEffect(() => {
     axios.get('/api/product/get')
@@ -55,18 +56,26 @@ export default function NavTabs() {
   }, [])
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+    setValue(newValue)
+  }
 
   const handleLogout = () => {
     localStorage.removeItem('token-market')
-  };
+  }
 
   const filterCards = (filter) => {
+    setFilter(filter)
     let prods = [...products]
     prods = prods.filter(item => item.category === filter)
     setFilt(prods)
     if (filter === '') setFilt(products)
+  }
+
+  const searchCard = (filter) => {
+    let prods = [...products]
+    prods = prods.filter(item => item.name.toLowerCase().includes(filter.toLowerCase()))
+    setFilt(prods)
+    if (filter === '') filterCards(filterValue)
   }
 
   return (
@@ -97,7 +106,7 @@ export default function NavTabs() {
           </Tabs>
         }
       </AppBar>
-      <Search />
+      <Search searchCard={searchCard} />
       <Categories filterCards={filterCards} />
       <div className="home-wr">
         {

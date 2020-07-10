@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: '80%',
     margin: '20px 10%',
+    padding: '10px 0 0',
     height: '50px',
     boxShadow: '0 0 6px #00000020'
   },
@@ -51,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Search() {
+export default function Search(props) {
   const classes = useStyles();
 
   return (
@@ -61,12 +62,14 @@ export default function Search() {
           <SearchIcon />
         </div>
         <InputBase
+          style={{ width: '100%' }}
           placeholder="Search…"
           classes={{
             root: classes.inputRoot,
             input: classes.inputInput,
           }}
           inputProps={{ 'aria-label': 'search' }}
+          onChange={e => props.searchCard(e.target.value)}
         />
       </div>
     </div>

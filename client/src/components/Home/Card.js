@@ -13,13 +13,20 @@ import { red } from '@material-ui/core/colors';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 
 import moment from 'moment'
+import axios from 'axios'
 
 export default function CardItem(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
+  const [file, setFile] = useState({})
 
   useEffect(() => {
-    console.log(props)
+    axios.get(`/api/product/image/e363c94118886050b43d4714a80b7539.png`)
+      .then(res => {
+        console.log(res.data)
+        setFile(res.data)
+      })
+      .catch(err => console.error(err))
   }, [])
 
   const handleExpandClick = () => {
@@ -27,7 +34,7 @@ export default function CardItem(props) {
   };
 
   return (
-    <Card className={classes.root} style={{ margin: '20px' }}>
+    <Card className={classes.root} style={{ margin: '20px', position: 'relative' }}>
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
@@ -42,11 +49,7 @@ export default function CardItem(props) {
         title={props.data.name}
         subheader={moment(props.data.date).format('YYYY MMMM DD')}
       />
-      <CardMedia
-        className={classes.media}
-        image="/static/images/cards/paella.jpg"
-        title="Paella dish"
-      />
+      <img src={`image/${file.filename}`} width="250" alt="" className="img-responsive"></img>
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p" style={{ height: '50px' }}>
           {props.data.shortDescription}
@@ -57,7 +60,7 @@ export default function CardItem(props) {
           <LocationOnIcon />
         </IconButton>
         <Typography style={{ opacity: '.6' }} > {props.data.location} </Typography>
-        <Typography style={{ opacity: '.6', marginLeft: '20%', fontSize: '15px' }} > {props.data.price} EUR</Typography>
+        <Typography style={{ opacity: '.6', position: 'absolute', right: '0', marginRight: '10%', fontSize: '15px' }} > {props.data.price} EUR</Typography>
       </CardActions>
     </Card>
   );

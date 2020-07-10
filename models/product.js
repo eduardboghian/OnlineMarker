@@ -10,7 +10,7 @@ const productSchema = new mongoose.Schema({
   name: String,
   username: String,
   price: String,
-  picture: String,
+  avatar: String,
   shortDescription: String,
   date: {
     type: Date,

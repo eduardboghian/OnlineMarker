@@ -66,13 +66,7 @@ export default function TopBar(props) {
             <LinkTab label="Home" href="/" />
             <LinkTab label="Messages" href="/sign-in" />
             <LinkTab label="Add Product" href="/add-product" />
-            <Select
-              label={userData.name}
-            >
-              <MenuItem value="" style={{ height: '55px', textAlign: 'center' }}>
-                <p style={{ textAlign: 'center', width: '100%' }} onClick={e => handleLogout(e)}>Sign Out</p>
-              </MenuItem>
-            </Select>
+            <LinkTab label={userData.name} href="#" />
           </Tabs>
         }
       </AppBar>

@@ -74,10 +74,10 @@ export default function Categories(props) {
           <Tab label="Toate" icon={<AppsIcon />} onClick={e => props.filterCards('')} />
           <Tab label="Imobiliare" icon={<HomeIcon />} onClick={e => props.filterCards('Imobiliare')} />
           <Tab label="Automobile" icon={<DriveEtaIcon />} onClick={e => props.filterCards('Automobile')} />
-          <Tab label="Electronice" icon={<PhoneIphoneIcon onClick={e => props.filterCards('Electronice')} />} />
-          <Tab label="Moda-Frumusete" icon={<FaceIcon />} onClick={e => props.filterCards('Moda-Frumusete')} />
+          <Tab label="Electronice" icon={<PhoneIphoneIcon />} onClick={e => props.filterCards('Electronice')} />
           <Tab label="Sport-Hobby" icon={<SportsSoccerIcon />} onClick={e => props.filterCards('Sport-Hobby')} />
-          <Tab label="Servicii-Afaceri" icon={<BusinessCenterIcon onClick={e => props.filterCards('Servicii-Afaceri')} />} />
+          <Tab label="Servicii-Afaceri" icon={<BusinessCenterIcon />} onClick={e => props.filterCards('Servicii-Afaceri')} />
+          <Tab label="Moda-Frumusete" icon={<FaceIcon />} onClick={e => props.filterCards('Moda-Frumusete')} />
           <Tab label="Animale" icon={<PetsIcon />} onClick={e => props.filterCards('Animale')} />
         </Tabs>
       </AppBar>
