@@ -79,12 +79,20 @@ router.get("/image/:filename", (req, res) => {
 })
 
 router.post('/add', upload.single('file'), async (req, res) => {
-  console.log(req.body)
-  let product = new Product(req.body.product)
+  let newProduct = JSON.parse(req.body.product)
+  newProduct.avatar = req.file.filename
+  let product = new Product(newProduct)
   product = await product.save()
 
-  res.redirect("/");
+  // res.redirect("/");
+  res.send(200)
 })
 
+
+router.post('/upload', upload.single('file'), async (req, res) => {
+  console.log(req.file)
+  console.log(req.body)
+  res.send(req.file)
+})
 
 module.exports = router

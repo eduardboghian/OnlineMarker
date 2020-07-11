@@ -29,6 +29,7 @@ export default function AddProduct() {
   const [newProduct, setNewProduct] = useState({
     category: ''
   })
+  const [imageFile, setImage] = useState()
 
   useEffect(() => {
     let userData = jwt.verify(localStorage.getItem('token-market'), 'jwtSecret')
@@ -39,11 +40,22 @@ export default function AddProduct() {
     })
   }, [])
 
-  const handleSubmit = () => {
-    axios.post('/api/product/add', { product: newProduct })
-      .then(res => console.log(res.data))
-      .then(err => console.error(err))
-    window.location.href = '/'
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    let image = new FormData()
+    image.append('file', imageFile)
+    image.set('product', JSON.stringify(newProduct))
+    console.log(image, 'image data test....')
+    axios({
+      method: 'post',
+      url: '/api/product/add',
+      data: image,
+      headers: { 'Content-Type': 'multipart/form-data' }
+    })
+      .then(res => console.log(res))
+      .catch(err => console.error(err))
+    // window.location.href = '/'
   }
 
   function readSingleFile(e) {
@@ -134,12 +146,14 @@ export default function AddProduct() {
         <h2>Fotografii</h2>
         <Grid item xs={7} style={{ heigth: '300px' }}>
           <div className='form-wr'>
-            <form action="/api/product/upload" method="POST" encType="multipart/form-data">
+            <form>
               <div className="custom-file mb-3">
-                <input type="file" className="custom-file-input" name="file" id="file1" onChange={e => readSingleFile(e.target.files)} />
+                <input type="file" className="custom-file-input" name="file" id="file1" onChange={e => {
+                  readSingleFile(e.target.files)
+                  setImage(e.target.files[0])
+                }} />
                 <label className="custom-file-label" htmlFor="file1" id="file-label">Choose file</label>
               </div>
-              <input type="submit" value="Submit" className="btn btn-primary btn-block" />
             </form>
           </div>
         </Grid>

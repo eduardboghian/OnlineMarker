@@ -13,32 +13,25 @@ import { red } from '@material-ui/core/colors';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 
 import moment from 'moment'
-import axios from 'axios'
 
 export default function CardItem(props) {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
-  const [file, setFile] = useState()
+  const [expanded, setExpanded] = React.useState(false)
 
   useEffect(() => {
-    axios.get(`/api/product/image/e363c94118886050b43d4714a80b7539.png`)
-      .then(res => {
-        console.log(res.data)
-        setFile(res.data)
-      })
-      .catch(err => console.error(err))
-  }, [])
+    console.log(props.data)
+  }, [props])
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
   return (
-    <Card className={classes.root} style={{ margin: '20px', position: 'relative' }}>
+    <Card className={classes.root} style={{ margin: '20px', position: 'relative', backgroundColor: '#f4f4f4' }}>
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            R
+            {props.data.username[0].toUpperCase()}
           </Avatar>
         }
         action={
@@ -49,7 +42,7 @@ export default function CardItem(props) {
         title={props.data.name}
         subheader={moment(props.data.date).format('YYYY MMMM DD')}
       />
-      <img src={`/api/product/image/e363c94118886050b43d4714a80b7539.png`} width="250" alt="" className="img-responsive"></img>
+      <img src={`/api/product/image/${props.data.avatar}`} width="250" alt="" className={classes.media}></img>
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p" style={{ height: '50px' }}>
           {props.data.shortDescription}
@@ -73,8 +66,9 @@ const useStyles = makeStyles((theme) => ({
     margin: '0 4px'
   },
   media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
+    width: '100%',
+    height: '200px',
+    padding: '3px'
   },
   expand: {
     transform: 'rotate(0deg)',
