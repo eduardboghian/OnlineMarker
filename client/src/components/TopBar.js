@@ -2,13 +2,22 @@ import React, { useState, useEffect } from 'react'
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import jwt from 'jsonwebtoken'
 
 import '../css/Home.css'
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.paper,
+  },
+}));
+
 export default function TopBar(props) {
+  const classes = useStyles();
   const [value, setValue] = React.useState(props.tab);
   const [userData, setUserData] = useState({})
 
@@ -43,8 +52,8 @@ export default function TopBar(props) {
   }
 
   return (
-    <div>
-      <div className="logo">Logo.</div>
+    <div className={classes.root}>
+      <div className="logo" >Logo.</div>
       <AppBar position="static" style={{ paddingLeft: '50%', paddingRight: '10%', boxShadow: 'none !important' }}>
         {!localStorage.getItem('token-market') ?
           <Tabs
