@@ -23,6 +23,7 @@ import axios from 'axios'
 import jwt from 'jsonwebtoken'
 
 import '../../css/AddProduct.css'
+import Location from '../Location';
 
 export default function AddProduct() {
   const classes = useStyles();
@@ -39,6 +40,10 @@ export default function AddProduct() {
       username: userData.name
     })
   }, [])
+
+  useEffect(() => {
+    console.log(newProduct)
+  }, [newProduct])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -162,15 +167,16 @@ export default function AddProduct() {
       <div className="add_product-form" style={{ marginTop: '30px' }}>
         <h2>Date de contact</h2>
         <Grid item xs={5} style={{ marginTop: '30px' }}>
-          <TextField
+          <Location
             variant="outlined"
             required
             fullWidth
             id="location"
             label="Oras sau localitate"
             name="location"
-            onChange={e => setNewProduct({ ...newProduct, [e.target.name]: e.target.value })}
             autoComplete="location"
+            setNewProduct={setNewProduct}
+            newProduct={newProduct}
           />
         </Grid>
 
@@ -199,6 +205,8 @@ export default function AddProduct() {
             autoComplete="phone"
           />
         </Grid>
+
+
       </div>
 
       <div className="add_product-form" style={{ marginTop: '30px' }}>

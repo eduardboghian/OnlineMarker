@@ -5,7 +5,6 @@ import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
@@ -17,10 +16,6 @@ import moment from 'moment'
 export default function CardItem(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false)
-
-  useEffect(() => {
-    console.log(props.data)
-  }, [props])
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
