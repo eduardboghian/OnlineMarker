@@ -56,7 +56,7 @@ export default function TopBar(props) {
 
   return (
     <div className={classes.root}>
-      <div className="logo" >Logo.</div>
+      <div className="logo" >OnlineMarket.</div>
       <AppBar position="static" className='app-bar' style={{ paddingLeft: '50%', paddingRight: '10%', boxShadow: 'none !important' }}>
         {!localStorage.getItem('token-market') ?
           <Tabs
