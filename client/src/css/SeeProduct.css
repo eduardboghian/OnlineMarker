@@ -1,0 +1,56 @@
+.product-wr{
+  width: 30%;
+  margin: 0 0 50px 20%;
+  background-color: #fff;
+  float: left;
+  position: relative;
+
+}
+.product-wr img {
+  width: 100%;
+}
+.product-wr button {
+  padding: 0 !important;
+
+}
+
+.user-wr{
+  width: 20%;
+  margin: 0 20% 0 0;
+  background-color: #fff;
+  float: right;
+}
+
+.user-wr, .product-wr {
+  margin-top: 50px;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 3px #ddd;
+}
+
+.location {
+  display: flex;
+  flex-direction: row;
+  height: 30px;
+  line-height: 50px;
+}
+
+.date {
+  opacity: .4;
+  margin-top: 10px;
+}
+
+.price {
+  position: absolute;
+  right: 20px;
+  top: 65px;
+  color: blue;
+  font-weight: bolder !important;
+  font-size: 34px !important;
+}
+
+.prod-desc {
+  margin-top: 50px;
+  font-size: 18px;
+  opacity: .8;
+}

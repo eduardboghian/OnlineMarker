@@ -60,7 +60,7 @@ export default function AddProduct() {
     })
       .then(res => console.log(res))
       .catch(err => console.error(err))
-    // window.location.href = '/'
+    window.location.href = '/'
   }
 
   function readSingleFile(e) {

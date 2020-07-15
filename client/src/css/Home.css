@@ -1,7 +1,7 @@
 .home-wr {
   position: relative;
   width: 80%;
-  margin: 30px 10%;
+  margin: 10px 10%;
   display: grid;
   grid-template-columns: 25% 25% 25% 25%;
 }
@@ -13,4 +13,28 @@
   left: 220px;
   color: #fff;
   font-size: 20px;
+}
+
+.MuiTab-wrapper:hover {
+  border: none !important;
+  color: #282828 !important;
+}
+
+.MuiButtonBase-root:hover {
+  border: none !important;
+  color: #282828 !important;
+}
+
+.check-mark {
+  color: blue;
+  margin-bottom: 5px;
+  font-size: 40px;
+}
+
+.MuiCardHeader-title {
+  font-size: 20px !important;
+  font-weight: bold !important;
+}
+.MuiCardHeader-subheader {
+  font-size: 14px !important;
 }

@@ -11,6 +11,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
+    position: 'fixed',
+    top: '0',
+    width: '100%',
+    zIndex: '999'
   },
 }));
 
@@ -40,6 +44,7 @@ export default function TopBar(props) {
     return (
       <Tab
         component="a"
+        className='tab'
         onClick={(event) => {
           event.preventDefault();
           window.location.href = props.href
@@ -52,7 +57,7 @@ export default function TopBar(props) {
   return (
     <div className={classes.root}>
       <div className="logo" >Logo.</div>
-      <AppBar position="static" style={{ paddingLeft: '50%', paddingRight: '10%', boxShadow: 'none !important' }}>
+      <AppBar position="static" className='app-bar' style={{ paddingLeft: '50%', paddingRight: '10%', boxShadow: 'none !important' }}>
         {!localStorage.getItem('token-market') ?
           <Tabs
             variant="fullWidth"

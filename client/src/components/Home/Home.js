@@ -7,6 +7,7 @@ import jwt from 'jsonwebtoken'
 
 import Search from './Search'
 import CardItem from './Card';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import Categories from './Categories'
 import '../../css/Home.css'
 import axios from 'axios'
@@ -108,7 +109,12 @@ export default function NavTabs() {
       </AppBar>
       <Search searchCard={searchCard} />
       <Categories filterCards={filterCards} />
+      <h3 style={{
+        width: '80%',
+        margin: '30px 10% 0'
+      }}><CheckCircleIcon className='check-mark' fontSize={"large"} /> Anunturi Promovate</h3>
       <div className="home-wr">
+
         {
           filtrated.map((prod, i) => {
             return <CardItem data={prod} key={i} />
@@ -118,17 +124,3 @@ export default function NavTabs() {
     </div>
   );
 }
-
-
-
-// <p style={showButton ?
-//   {
-//     textAlign: 'center',
-//     width: '15%',
-//     position: 'absolute',
-//     top: '40px',
-//     left: '80%',
-//     backgroundColor: '#f4f4f4',
-//     zIndex: '1',
-//     height: '50px'
-//   } : { display: 'none' }} onClick={e => handleLogout(e)}>Sign Out</p>

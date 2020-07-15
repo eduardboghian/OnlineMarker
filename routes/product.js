@@ -59,6 +59,12 @@ router.get('/get', async (req, res) => {
   res.send(product)
 })
 
+router.get('/get/:id', async (req, res) => {
+  let product = await Product.findOne({ _id: req.params.id })
+
+  res.send(product)
+})
+
 router.get("/image/:filename", (req, res) => {
   gfs.files.findOne({
     filename: req.params.filename
