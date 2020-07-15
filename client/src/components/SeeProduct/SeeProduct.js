@@ -55,6 +55,7 @@ export default function SeeProduct() {
 
       <div className="user-wr">
         {data.username}
+        {data.phone}
       </div>
 
     </div>
