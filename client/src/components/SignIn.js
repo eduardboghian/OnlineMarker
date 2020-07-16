@@ -18,7 +18,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        Online Market
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -61,7 +61,7 @@ export default function SignIn() {
         <CssBaseline />
         <div className={classes.paper}>
           <Typography component="h1" variant="h5">
-            Sign in
+            Autentificare
         </Typography>
           <form className={classes.form} noValidate>
             <TextField
@@ -70,7 +70,7 @@ export default function SignIn() {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label="Adresa de Email"
               name="email"
               autoComplete="email"
               autoFocus
@@ -83,7 +83,7 @@ export default function SignIn() {
               required
               fullWidth
               name="password"
-              label="Password"
+              label="Parola"
               type="password"
               id="password"
               autoComplete="current-password"
@@ -102,17 +102,17 @@ export default function SignIn() {
               className={classes.submit}
               onClick={e => loginRequest(e)}
             >
-              Sign In
+              Autentificare
           </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
+                <Link href="/" variant="body2">
+                  Inapoi la pagina de pornire
               </Link>
               </Grid>
               <Grid item>
                 <Link href="/sign-up" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                  {"Inregistreaza-te"}
                 </Link>
               </Grid>
             </Grid>

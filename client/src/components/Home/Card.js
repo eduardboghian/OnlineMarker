@@ -11,6 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import BeenhereIcon from '@material-ui/icons/Beenhere';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
+
 
 import moment from 'moment'
 import '../../css/Home.css'
@@ -32,7 +34,7 @@ export default function CardItem(props) {
           </IconButton>
         }
         title={props.data.name}
-        subheader={moment(props.data.date).format('YYYY MMMM DD, h:mm:ss a')}
+        subheader={<p> <AccessTimeIcon /> {moment(props.data.date).fromNow()} </p>}
       />
       <img src={`/api/product/image/${props.data.avatar}`} width="250" alt="" className={classes.media}></img>
       <CardContent>

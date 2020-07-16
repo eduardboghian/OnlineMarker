@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     backgroundColor: '#f4f4f4',
     position: 'relative',
+    minHeight: '100vh',
     paddingBottom: '180px'
   },
 }));

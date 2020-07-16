@@ -17,7 +17,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        OnlineMarket
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -76,7 +76,7 @@ export default function SignUp() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          Inregistrare
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
@@ -88,7 +88,7 @@ export default function SignUp() {
                 required
                 fullWidth
                 id="firstName"
-                label="First Name"
+                label="Prenume"
                 autoFocus
                 onChange={e => setUserData({ ...userData, [e.target.name]: e.target.value })}
               />
@@ -99,7 +99,7 @@ export default function SignUp() {
                 required
                 fullWidth
                 id="lastName"
-                label="Last Name"
+                label="Nume"
                 name="lastName"
                 autoComplete="lname"
                 onChange={e => setUserData({ ...userData, [e.target.name]: e.target.value })}
@@ -111,7 +111,7 @@ export default function SignUp() {
                 required
                 fullWidth
                 id="email"
-                label="Email Address"
+                label="Adresa de Email"
                 name="email"
                 onChange={e => setUserData({ ...userData, [e.target.name]: e.target.value })}
                 autoComplete="email"
@@ -123,7 +123,7 @@ export default function SignUp() {
                 required
                 fullWidth
                 name="password"
-                label="Password"
+                label="Parola"
                 type="password"
                 id="password"
                 onChange={e => setUserData({ ...userData, [e.target.name]: e.target.value })}
@@ -136,7 +136,7 @@ export default function SignUp() {
                 required
                 fullWidth
                 id="phone"
-                label="Phone Number"
+                label="Numar de Telefon"
                 name="phoneNumber"
                 onChange={e => setUserData({ ...userData, [e.target.name]: e.target.value })}
                 autoComplete="phoneNumber"
@@ -148,7 +148,7 @@ export default function SignUp() {
                 required
                 fullWidth
                 id="location"
-                label="Location"
+                label="Locatie"
                 name="location"
                 onChange={e => setUserData({ ...userData, [e.target.name]: e.target.value })}
                 autoComplete="location"
@@ -164,12 +164,12 @@ export default function SignUp() {
             className={classes.submit}
             onClick={e => registerUser(e)}
           >
-            Sign Up
+            Inregistrare
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
               <Link href="/sign-in" variant="body2">
-                Already have an account? Sign in
+                Ai deja un cont? Autentifica-te!
               </Link>
             </Grid>
           </Grid>
