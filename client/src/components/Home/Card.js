@@ -34,7 +34,7 @@ export default function CardItem(props) {
           </IconButton>
         }
         title={props.data.name}
-        subheader={<p> <AccessTimeIcon /> {moment(props.data.date).fromNow()} </p>}
+        subheader={moment(props.data.date).fromNow()}
       />
       <img src={`/api/product/image/${props.data.avatar}`} width="250" alt="" className={classes.media}></img>
       <CardContent>

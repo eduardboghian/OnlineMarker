@@ -46,7 +46,7 @@ export default function SignIn() {
   const classes = useStyles();
 
   return (
-    <div syle={{
+    <div style={{
       width: '99vw',
       height: '99vh',
       position: 'relative'
