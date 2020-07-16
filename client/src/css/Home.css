@@ -3,6 +3,7 @@
   width: 80%;
   margin: 10px 10%;
   display: grid;
+  background-color: #f4f4f4;
   grid-template-columns: 25% 25% 25% 25%;
 }
 

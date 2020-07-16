@@ -7,6 +7,7 @@ import jwt from 'jsonwebtoken'
 
 import Search from './Search'
 import CardItem from './Card';
+import Footer from '../Footer'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import Categories from './Categories'
 import '../../css/Home.css'
@@ -29,7 +30,9 @@ function LinkTab(props) {
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: '#f4f4f4',
+    position: 'relative',
+    paddingBottom: '180px'
   },
 }));
 
@@ -121,6 +124,7 @@ export default function NavTabs() {
           })
         }
       </div>
+      <Footer />
     </div>
   );
 }

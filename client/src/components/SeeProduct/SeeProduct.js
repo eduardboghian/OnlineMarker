@@ -9,6 +9,7 @@ import MessageIcon from '@material-ui/icons/Message';
 import StarsIcon from '@material-ui/icons/Stars';
 
 import TopBar from '../TopBar'
+import Footer from '../Footer'
 
 import axios from 'axios'
 import moment from 'moment'
@@ -94,6 +95,8 @@ export default function SeeProduct() {
           <button type="submit" className='submit-message'>Trimite Mesaj</button>
         </form>
       </div>
+
+      <Footer />
 
     </div>
   )

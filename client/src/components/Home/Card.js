@@ -22,7 +22,7 @@ export default function CardItem(props) {
   return (
     <Card
       className={classes.root}
-      style={{ margin: '20px', position: 'relative', backgroundColor: '#f4f4f4' }}
+      style={{ margin: '20px', position: 'relative', backgroundColor: '#fff' }}
       onClick={e => window.location.href = `/card/${props.data._id}`}
     >
       <CardHeader

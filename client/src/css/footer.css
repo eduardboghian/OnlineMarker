@@ -1,0 +1,13 @@
+.footer-wr {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: #181818;
+  padding-top: 50px;
+}
+
+.footer-wr p {
+  text-align: center;
+  height: 100px;
+  color: #fff
+}
