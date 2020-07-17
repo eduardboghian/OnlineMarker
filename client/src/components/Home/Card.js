@@ -30,7 +30,7 @@ export default function CardItem(props) {
       <CardHeader
         action={
           <IconButton aria-label="settings">
-            <BeenhereIcon fontSize={'large'} style={{ color: 'blue' }} />
+            {props.data.promovated ? <BeenhereIcon fontSize={'large'} style={{ color: 'blue' }} /> : null}
           </IconButton>
         }
         title={props.data.name}

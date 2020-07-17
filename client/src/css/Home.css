@@ -39,3 +39,28 @@
 .MuiCardHeader-subheader {
   font-size: 14px !important;
 }
+
+.user-menu {
+  position: fixed;
+  top: 55px;
+  padding-top: 20px;
+  right: 160px;
+  width: 200px;
+  height: 210px;
+  background-color: #ddd;
+  box-shadow: 0 0 3px #28282862;
+  border-radius: 4px;
+  z-index: 2;
+}
+
+.sign-out-btn {
+  width: 80%;
+  height: 40px;
+  margin: 0 10%;
+  margin-top: 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(250, 36, 36);
+  color: #fff;
+  font-size: 18px;
+}

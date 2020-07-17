@@ -45,6 +45,7 @@ export default function NavTabs() {
   const [showButton, setButton] = useState(false)
   const [filtrated, setFilt] = useState([])
   const [filterValue, setFilter] = useState('')
+  const [menu, showMenu] = useState(false)
 
   useEffect(() => {
     axios.get('/api/product/get')
@@ -66,6 +67,7 @@ export default function NavTabs() {
 
   const handleLogout = () => {
     localStorage.removeItem('token-market')
+    window.location.href = '/'
   }
 
   const filterCards = (filter) => {
@@ -94,9 +96,9 @@ export default function NavTabs() {
             onChange={handleChange}
             aria-label="nav tabs example"
           >
-            <LinkTab label="Home" href="/" />
-            <LinkTab label="Login" href="/sign-in" />
-            <LinkTab label="Sign Up" href="/sign-up" />
+            <LinkTab label="Acasa" href="/" />
+            <LinkTab label="Autentificare" href="/sign-in" />
+            <LinkTab label="Inregistreaza-te" href="/sign-up" />
           </Tabs> :
           <Tabs
             variant="fullWidth"
@@ -104,20 +106,45 @@ export default function NavTabs() {
             onChange={handleChange}
             aria-label="nav tabs example"
           >
-            <LinkTab label="Home" href="/" />
-            <LinkTab label="Messages" href="/sign-in" />
-            <LinkTab label="Add Product" href="/add-product" />
-            <LinkTab label={userData.name} href="#" onClick={e => setButton(!showButton)} />
+            <LinkTab label="Acasa" href="/" />
+            <LinkTab label="Mesaje" href="#" />
+            <LinkTab label="Adauga Anunt" href="/add-product" />
+            <LinkTab label={userData.name} onClick={e => showMenu(!menu)} />
           </Tabs>
         }
       </AppBar>
+
+      <section className="user-menu" style={menu ? {} : { display: 'none' }}>
+        <button className="sign-out-btn" style={{ backgroundColor: '#fff', color: '#000' }}>Anunturile Tale</button>
+        <button className="sign-out-btn" style={{ backgroundColor: '#fff', color: '#000' }}>Anunturi Favorite</button>
+        <button className="sign-out-btn" onClick={e => handleLogout()}>Delogheaza-te!</button>
+      </section>
+
+
       <Search searchCard={searchCard} />
+
       <Categories filterCards={filterCards} />
+
       <h3 style={{
         width: '80%',
         margin: '30px 10% 0'
       }}><CheckCircleIcon className='check-mark' fontSize={"large"} /> Anunturi Promovate</h3>
+
       <div className="home-wr">
+        {
+          filtrated.map((prod, i) => {
+            return prod.promovated ? <CardItem data={prod} key={i} /> : null
+          })
+        }
+
+        <h3 style={{
+          width: '100%',
+          margin: '30px 0 10px',
+          borderBottom: '1px solid #000',
+          gridColumnStart: 1,
+          gridColumnEnd: 5
+        }}>Alte Anunturi</h3>
+
 
         {
           filtrated.map((prod, i) => {

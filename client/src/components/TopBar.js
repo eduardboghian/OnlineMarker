@@ -22,6 +22,7 @@ export default function TopBar(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(props.tab);
   const [userData, setUserData] = useState({})
+  const [menu, showMenu] = useState(false)
 
   useEffect(() => {
     if (localStorage.getItem('token-market')) {
@@ -57,6 +58,7 @@ export default function TopBar(props) {
   return (
     <div className={classes.root}>
       <div className="logo" >OnlineMarket.</div>
+
       <AppBar position="static" className='app-bar' style={{ paddingLeft: '50%', paddingRight: '10%', boxShadow: 'none !important' }}>
         {!localStorage.getItem('token-market') ?
           <Tabs
@@ -65,9 +67,9 @@ export default function TopBar(props) {
             onChange={handleChange}
             aria-label="nav tabs example"
           >
-            <LinkTab label="Home" href="/" />
-            <LinkTab label="Login" href="/sign-in" />
-            <LinkTab label="Sign Up" href="/sign-up" />
+            <LinkTab label="Acasa" href="/" />
+            <LinkTab label="Autentificare" href="/sign-in" />
+            <LinkTab label="Inregistreaza-te" href="/sign-up" />
           </Tabs> :
           <Tabs
             variant="fullWidth"
@@ -75,13 +77,20 @@ export default function TopBar(props) {
             onChange={handleChange}
             aria-label="nav tabs example"
           >
-            <LinkTab label="Home" href="/" />
-            <LinkTab label="Messages" href="/sign-in" />
-            <LinkTab label="Add Product" href="/add-product" />
-            <LinkTab label={userData.name} href="#" />
+            <LinkTab label="Acasa" href="/" />
+            <LinkTab label="Mesaje" href="#" />
+            <LinkTab label="Adauga Anunt" href="/add-product" />
+            <LinkTab label={userData.name} onClick={e => showMenu(!menu)} />
           </Tabs>
         }
       </AppBar>
+
+      <section className="user-menu" style={menu ? {} : { display: 'none' }}>
+        <button className="sign-out-btn" style={{ backgroundColor: '#fff', color: '#000' }}>Anunturile Tale</button>
+        <button className="sign-out-btn" style={{ backgroundColor: '#fff', color: '#000' }}>Anunturi Favorite</button>
+        <button className="sign-out-btn" onClick={e => handleLogout()}>Delogheaza-te!</button>
+      </section>
+
     </div>
   )
 }
