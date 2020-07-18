@@ -107,7 +107,7 @@ export default function NavTabs() {
             aria-label="nav tabs example"
           >
             <LinkTab label="Acasa" href="/" />
-            <LinkTab label="Mesaje" href="#" />
+            <LinkTab label="Mesaje" href="/messages" />
             <LinkTab label="Adauga Anunt" href="/add-product" />
             <LinkTab label={userData.name} onClick={e => showMenu(!menu)} />
           </Tabs>

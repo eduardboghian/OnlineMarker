@@ -6,6 +6,7 @@ import SignUp from './components/SignUp'
 import Home from './components/Home/Home'
 import AddProduct from './components/AddProduct/AddProduct'
 import SeeProduct from './components/SeeProduct/SeeProduct'
+import Messages from './components/DashboardComp'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route path='/sign-up' component={SignUp} />
       <Route path='/card/:id' component={SeeProduct} />
       <Route path='/add-product' component={AddProduct} />
+      <Route path='/messages' component={Messages} />
     </Router>
   )
 }
