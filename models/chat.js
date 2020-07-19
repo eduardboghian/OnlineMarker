@@ -16,17 +16,17 @@ const messageSchema = new mongoose.Schema({
 })
 
 const roomSchema = new mongoose.Schema({
-    docId: {
+    uid1: {
         type: String,
         required: true
     },
-    patientId: {
+    uid2: {
         type: String,
         required: true
     },
     messages: {
         type: Array
-    }   
+    }
 })
 
 module.exports.Messages = mongoose.model('Messages', messageSchema)

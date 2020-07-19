@@ -2,33 +2,30 @@ const { Messages, Room } = require('../models/chat')
 const { User, Doctor } = require('../models/user')
 const router = require('express').Router()
 
-router.get('/load-messages/:did/:pid', async (req, res) => {
-    let room = await Room.find({ docId: req.params.did, patientId: req.params.pid })
+router.get('/load-messages/:uid1/:uid2', async (req, res) => {
+    let room = await Room.find({ uid1: req.params.uid1, uid2: req.params.uid2 })
 
     res.send(room)
 })
 
-// CREATE AND UPDATE ROOM
-
-router.post('/create-room/:docId/:patientId', async (req, res) => {
-    let room = await Room.find({ docId: req.params.docId, patientId: req.params.patientId })
+// CREATE ROOM
+router.post('/create-room/:uid1/:uid2', async (req, res) => {
+    let room = await Room.find({ uid1: req.params.uid1, uid2: req.params.uid2 })
     if (room.length > 0) return res.status(200).send('romm already exists...')
 
-    room = new Room({ docId: req.params.docId, patientId: req.params.patientId, messages: [] })
+    room = new Room({ uid1: req.params.uid1, uid2: req.params.uid2, messages: [] })
     room = await room.save()
     res.send(room)
 })
 
-// []
-
+// ADD MESSAGE TO ROOM  
 router.put('/newmsg/:room', async (req, res) => {
     const room = req.params.room
-    const docId = room.slice(0, room.length / 2)
-    const patientId = room.slice(room.length / 2, room.length)
+    const uid1 = room.slice(0, room.length / 2)
+    const uid2 = room.slice(room.length / 2, room.length)
     const msg = { user: req.body.name, text: req.body.message }
 
-
-    let messages = await Room.findOneAndUpdate({ docId: docId, patientId: patientId },
+    let messages = await Room.findOneAndUpdate({ uid1, uid2 },
         { $push: { messages: msg } },
         { new: true }
     )
@@ -37,21 +34,15 @@ router.put('/newmsg/:room', async (req, res) => {
 })
 
 // UPDATE CONTACT LIST
+router.put('/add-contact/:uid1/:uid2', async (req, res) => {
+    let user = await User.findOne({ _id: req.params.uid1, contactList: req.params.uid2 })
+    let user2 = await User.findOne({ _id: req.params.uid2 })
+    if (user) return res.status(200).send({ user, user2 })
 
-router.put('/add-contact/:did/:pid', async (req, res) => {
-    console.log(req.params.pid, req.params.did)
+    user = await User.findOneAndUpdate({ _id: req.params.uid1 }, { $push: { contactList: req.params.uid2 } }, { new: true })
+    user2 = await User.findOneAndUpdate({ _id: req.params.uid2 }, { $push: { contactList: req.params.uid1 } }, { new: true })
 
-    const patientContacts = await User.find({ _id: req.params.pid, contactList: req.params.did })
-    const docContacts = await Doctor.find({ contactList: req.params.pid })
-
-    console.log(patientContacts)
-
-    if (patientContacts.length < 1) {
-        const p = await User.findOneAndUpdate({ _id: req.params.pid }, { $push: { contactList: req.params.did } }, { new: true })
-        const d = await Doctor.findOneAndUpdate({ _id: req.params.did }, { $push: { contactList: req.params.pid } }, { new: true })
-        return res.status(200).send('stored...', p, d)
-    }
-    res.status(200).send('already stored...')
+    res.status(200).send({ user, user2 })
 })
 
 // DELETE ALL MESSAGES **REMOVE THIS CODE
@@ -59,25 +50,6 @@ router.put('/add-contact/:did/:pid', async (req, res) => {
 router.delete('/messages', async (req, res) => {
     const msgs = await Messages.deleteMany()
     res.send(msgs)
-})
-
-
-// REVIEWS
-
-router.get('/getreviews', async (req, res) => {
-    const reviews = await Messages.find()
-    res.send(reviews)
-})
-
-router.post('/addreview', async (req, res) => {
-    let review = new Messages({
-        userId: req.body.userId,
-        message: req.body.message,
-        name: req.body.name
-    })
-    review = await review.save()
-
-    res.send(review)
 })
 
 module.exports = router

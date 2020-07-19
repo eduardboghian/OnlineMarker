@@ -16,7 +16,7 @@ function App() {
       <Route path='/sign-up' component={SignUp} />
       <Route path='/card/:id' component={SeeProduct} />
       <Route path='/add-product' component={AddProduct} />
-      <Route path='/messages' component={Messages} />
+      <Route path='/chat/:uid1/:uid2' component={Messages} />
     </Router>
   )
 }

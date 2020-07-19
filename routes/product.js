@@ -52,6 +52,8 @@ const upload = multer({
   fileFilter
 });
 
+
+
 //  PRODUCT ROUTES
 router.get('/get', async (req, res) => {
   let product = await Product.find()
@@ -95,10 +97,10 @@ router.post('/add', upload.single('file'), async (req, res) => {
 })
 
 
-router.post('/upload', upload.single('file'), async (req, res) => {
-  console.log(req.file)
-  console.log(req.body)
-  res.send(req.file)
-})
+// router.post('/upload', upload.single('file'), async (req, res) => {
+//   console.log(req.file)
+//   console.log(req.body)
+//   res.send(req.file)
+// })
 
 module.exports = router

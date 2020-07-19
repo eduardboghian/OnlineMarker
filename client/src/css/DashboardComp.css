@@ -27,7 +27,7 @@
 
 .top-bar p {
   font-size: 24px;
-  padding: 5px 0 0 50px;
+  padding: 10px 0 0 50px;
   margin: 0;
   float: left;
 }
@@ -60,9 +60,7 @@
 }
 
 .chat-wr {
-  grid-column-start: 1;
-  grid-column-end: 3;
-  background: #f2f2f2;
+  background: #fff;
   width: 100%;
   height: calc(100vh - 53px);
   border: 1px solid #ddd;
@@ -96,7 +94,7 @@
   float: right;
   width: 100px;
   height: 40px;
-  background: #3187f4;
+  line-height: 40px;
   border: none;
   border-radius: 5px;
   margin-right: 50px;

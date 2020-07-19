@@ -57,7 +57,11 @@ export default function TopBar(props) {
 
   return (
     <div className={classes.root}>
-      <div className="logo" >OnlineMarket.</div>
+      <div
+        className="logo"
+        style={{ cursor: 'pointer' }}
+        onClick={e => window.location.href = '/'}
+      >OnlineMarket.</div>
 
       <AppBar position="static" className='app-bar' style={{ paddingLeft: '50%', paddingRight: '10%', boxShadow: 'none !important' }}>
         {!localStorage.getItem('token-market') ?

@@ -1,7 +1,7 @@
 .messageBox {
   background: #F3F3F3;
-  border-radius: 20px;
-  padding: 5px 20px;
+  border-radius: 90px;
+  padding: 0 20px;
   color: white;
   display: inline-block;
   max-width: 80%;
@@ -13,6 +13,7 @@
   float: left;
   font-size: 1.1em;
   word-wrap: break-word;
+  margin: 0 !important;
 }
 
 .messageText img {
@@ -32,6 +33,7 @@
   font-family: Helvetica;
   color: #828282;
   letter-spacing: 0.3px;
+  margin: 0 !important;
 }
 
 .pl-10 {
@@ -52,10 +54,13 @@
 
 .colorWhite {
   color: white;
+  line-height: 42px;
 }
 
 .colorDark {
   color: #353535;
+  line-height: 42px;
+
 }
 
 .backgroundBlue {
@@ -63,5 +68,5 @@
 }
 
 .backgroundLight {
-  background: #F3F3F3;
+  background: #eee;
 }

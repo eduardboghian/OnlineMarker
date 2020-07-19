@@ -4,6 +4,12 @@ const bcrypt = require('bcrypt')
 
 const { User } = require('../models/user')
 
+router.get('/get-users', async (req, res) => {
+  let users = await User.find()
+
+  res.send(users)
+})
+
 router.post('/login', async (req, res) => {
   const { email, password } = req.body
 
@@ -25,6 +31,7 @@ router.post('/login', async (req, res) => {
 
 router.post('/register', async (req, res) => {
   const userData = { ...req.body.userData }
+
   userData.username = userData.firstName + ' ' + userData.lastName
 
   const check = await User.findOne({ email: userData.email })

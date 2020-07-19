@@ -13,14 +13,18 @@ import Footer from '../Footer'
 
 import axios from 'axios'
 import moment from 'moment'
+import jwt from 'jsonwebtoken'
 import '../../css/SeeProduct.css'
 
 export default function SeeProduct() {
   const [data, setData] = useState({})
+  const [userData, setUserData] = useState({})
 
   useEffect(() => {
     let id = window.location.pathname.split('/')
     id = id[id.length - 1]
+
+    setUserData(jwt.verify(localStorage.getItem('token-market'), 'jwtSecret'))
 
     axios.get(`/api/product/get/${id}`)
       .then(res => setData(res.data))
@@ -64,15 +68,18 @@ export default function SeeProduct() {
           <h4>{data.username}</h4>
         </div>
         <section className='see-phone'><PhoneIcon style={{ marginRight: '10px' }} />{data.phone}</section>
-        <section className='see-message'><MessageIcon style={{ marginRight: '10px' }} /> Trimite Mesaj</section>
+        <section
+          className='see-message'
+          onClick={e => window.location.href = `/chat/${data.userId}/${userData._id}`}
+        ><MessageIcon style={{ marginRight: '10px' }} /> Trimite Mesaj</section>
         <section className='see-fav'><StarsIcon style={{ marginRight: '10px' }} />Salveaza Anuntul</section>
       </div>
 
-      <div className="verifica-wr">
+      <div className="verifica-wr" style={data.category === 'Servicii-Afaceri' ? { display: 'none' } : {}} >
         <div className='title-wr'>
           <h4 style={{ textAlign: 'center', fontWeight: 'bold' }}>Verifica Anuntul!</h4>
         </div>
-        <p verifica-text>Daca sunteti interesat de produs si vreti sa fie verificat de echipa noastra de profesionisti, puteti achizitiona acest serviciu la doar:</p>
+        <p>Daca sunteti interesat de produs si vreti sa fie verificat de echipa noastra de profesionisti, puteti achizitiona acest serviciu la doar:</p>
         <section>{new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(data.price * 0.05)}</section>
         <button>Verifica!</button>
       </div>

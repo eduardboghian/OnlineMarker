@@ -1,59 +1,49 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import axios from 'axios'
-import io from 'socket.io-client'
 import Messages from './Messages/Messages'
-import Input from './Input/Input'
+import { Link } from 'react-router-dom'
 import InfoBar from './InfoBar/InfoBar'
-// import ContactList from './ContactList'
+import ContactList from './ContactList'
+import Input from './Input/Input'
 
 import '../css/DashboardComp.css'
+import io from 'socket.io-client'
+import jwt from 'jsonwebtoken'
+import axios from 'axios'
+
 let socket
 
-
 export default function Dashboard(props, location) {
-    const [userdata, setUserdata] = useState({
-        _id: '',
-        name: '',
-        email: '',
-        contacts: []
-    })
+    const [userdata, setUserData] = useState({})
+    const [userdata2, setUserData2] = useState({})
     const [message, setMessage] = useState('')
     const [messages, setMessages] = useState([])
-    const [doctor, setDoctor] = useState([])
     const [rooms, setRoom] = useState('')
     const [users, setUsers] = useState([])
     const [username, setUsername] = useState('')
     const ENDPOINT = ':'
 
     useEffect(() => {
-        // GET USER INFO FROM DB
+        setUserData(jwt.verify(localStorage.getItem('token-market'), 'jwtSecret'))
 
-        axios.post('/api/user/getinfo', {
-            token: sessionStorage.getItem('authtoken')
-        })
+        axios.put(`/api/chat/add-contact/${props.match.params.uid1}/${props.match.params.uid2}`)
             .then(res => {
-                console.log('res:', res)
-                setUserdata({ _id: res.data._id, name: res.data.name, email: res.data.email, contacts: res.data.contactList })
+                if (userdata._id === res.data.user._id) {
+                    setUserData(res.data.user)
+                    setUserData2(res.data.user2)
+                } else {
+                    setUserData(res.data.user2)
+                    setUserData2(res.data.user)
+                }
             })
-            .catch(err => console.log(err))
-
-        // GET DOCTOR INFO FROM DB
-        // axios.get(`/api/user/getdoctor/${props.match.params.did}`)
-        // .then(res => setDoctor(res.data))
-        // .catch(err => console.log(err))
-
-        axios.put(`/api/chat/add-contact/${props.match.params.did}/${props.match.params.pid}`)
-            .then(res => console.log('add:', res))
             .catch(err => console.log(err))
 
         // CREATE ROOM/ LOAD MESSAGES
 
-        axios.post(`/api/chat/create-room/${props.match.params.did}/${props.match.params.pid}`)
-            .then(res => console.log(res))
+        axios.post(`/api/chat/create-room/${props.match.params.uid1}/${props.match.params.uid2}`)
+            .then(res => console.log(res.data))
             .catch(err => console.log(err))
 
-        axios.get(`/api/chat/load-messages/${props.match.params.did}/${props.match.params.pid}`)
+        axios.get(`/api/chat/load-messages/${props.match.params.uid1}/${props.match.params.uid2}`)
             .then((res) => {
                 res.data[0].messages.map((msg) => {
                     setMessages((messages) => ([...messages, msg]))
@@ -66,8 +56,8 @@ export default function Dashboard(props, location) {
     }, [])
 
     useEffect(() => {
-        let name = props.match.params.name
-        let room = props.match.params.did + props.match.params.pid
+        let name = 'You'
+        let room = props.match.params.uid1 + props.match.params.uid2
 
         socket = io(ENDPOINT);
 
@@ -122,12 +112,6 @@ export default function Dashboard(props, location) {
         }
     }
 
-    const handleClick = (e) => {
-        e.preventDefault()
-
-        props.history.push(`/videoroom/${props.match.params.did}/${props.match.params.pid}/${userdata.name}`)
-    }
-
     function handleToken(token, adresses) {
         console.log(token)
 
@@ -143,15 +127,14 @@ export default function Dashboard(props, location) {
             <div className="dasboard">
                 <Link to='/' className="back-home">Go Back Home</Link>
                 <div className="top-bar">
-                    <p>User: {userdata.name} {doctor.map(data => data.name)}</p>
+                    <p>User: {userdata2.username}</p>
                 </div>
 
-                {/* <div className="contact-list">
-                    <ContactList props={props} contactList={userdata.contacts} />
-                </div> */}
+                <div className="contact-list">
+                    <ContactList props={props} contactList={userdata.contactList} uid={userdata._id} />
+                </div>
                 <div className="chat-wr">
                     <div className="chat-screen" id='messages'>
-                        <InfoBar room={rooms} />
                         <Messages messages={messages} name={username} />
                     </div>
                     <div className='chat-screen-form'>
