@@ -2,20 +2,27 @@ const { Messages, Room } = require('../models/chat')
 const { User, Doctor } = require('../models/user')
 const router = require('express').Router()
 
-router.get('/load-messages/:uid1/:uid2', async (req, res) => {
-    let room = await Room.find({ uid1: req.params.uid1, uid2: req.params.uid2 })
+router.get('/load-messages/:room', async (req, res) => {
+    const room = req.params.room
+    const uid1 = room.slice(0, room.length / 2)
+    const uid2 = room.slice(room.length / 2, room.length)
+    let msgs = await Room.find({ uid1, uid2 })
 
-    res.send(room)
+    res.send(msgs)
 })
 
 // CREATE ROOM
 router.post('/create-room/:uid1/:uid2', async (req, res) => {
     let room = await Room.find({ uid1: req.params.uid1, uid2: req.params.uid2 })
-    if (room.length > 0) return res.status(200).send('romm already exists...')
+    if (room.length > 0) return res.status(200).send(req.params.uid1 + req.params.uid2)
+
+    room = await Room.find({ uid1: req.params.uid2, uid2: req.params.uid1 })
+    if (room.length > 0) return res.status(200).send(req.params.uid2 + req.params.uid1)
+
 
     room = new Room({ uid1: req.params.uid1, uid2: req.params.uid2, messages: [] })
     room = await room.save()
-    res.send(room)
+    res.send(room.uid1 + room.uid2)
 })
 
 // ADD MESSAGE TO ROOM  

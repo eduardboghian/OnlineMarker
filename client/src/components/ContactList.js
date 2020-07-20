@@ -12,6 +12,10 @@ export default function ContactList({ props, contactList, uid }) {
     }, [])
 
     useEffect(() => {
+        console.log(contactList)
+    }, [contactList])
+
+    useEffect(() => {
         if (contactList !== undefined) {
             let res = users.filter(user => contactList.includes(user._id))
             setContacts(res)
@@ -21,13 +25,13 @@ export default function ContactList({ props, contactList, uid }) {
 
     function redirectHandler(e, uid1, uid2) {
         e.preventDefault()
-        window.location.href = `/chat/${uid1}/${uid2}`
+        window.location.href = `/chat/${uid2}/${uid1}`
     }
 
     return (
         <div>
             {contacts.map((data, i) =>
-                <div className="contacts" key={i} onClick={e => redirectHandler(e, uid, data._id)}>{data.username}</div>
+                <div className="contacts" key={i} onClick={e => redirectHandler(e, uid, data._id)}>{uid === data._id ? 'You' : data.username}</div>
             )}
         </div>
     )

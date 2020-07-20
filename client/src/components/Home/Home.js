@@ -43,6 +43,7 @@ export default function NavTabs() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0)
   const [userData, setUserData] = useState({})
+  const [userId, setId] = useState('')
   const [products, setProducts] = useState([])
   const [showButton, setButton] = useState(false)
   const [filtrated, setFilt] = useState([])
@@ -61,6 +62,7 @@ export default function NavTabs() {
     if (localStorage.getItem('token-market')) {
       let data = jwt.verify(localStorage.getItem('token-market'), 'jwtSecret')
       setUserData({ ...userData, name: data.name })
+      setId(data._id)
     }
   }, [])
 
@@ -110,7 +112,7 @@ export default function NavTabs() {
             aria-label="nav tabs example"
           >
             <LinkTab label="Acasa" href="/" />
-            <LinkTab label="Mesaje" href="/messages" />
+            <LinkTab label="Mesaje" href={`/chat/${userId}/${userId}`} />
             <LinkTab label="Adauga Anunt" href="/add-product" />
             <LinkTab label={userData.name} onClick={e => showMenu(!menu)} />
           </Tabs>

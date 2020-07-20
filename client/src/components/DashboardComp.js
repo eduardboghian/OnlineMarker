@@ -17,7 +17,7 @@ export default function Dashboard(props, location) {
     const [userdata2, setUserData2] = useState({})
     const [message, setMessage] = useState('')
     const [messages, setMessages] = useState([])
-    const [rooms, setRoom] = useState('')
+    const [room, setRoom] = useState('')
     const [users, setUsers] = useState([])
     const [username, setUsername] = useState('')
     const ENDPOINT = ':'
@@ -29,9 +29,12 @@ export default function Dashboard(props, location) {
             .then(res => {
                 if (userdata._id === res.data.user._id) {
                     setUserData(res.data.user)
+                    setUsername(res.data.user.username)
                     setUserData2(res.data.user2)
                 } else {
                     setUserData(res.data.user2)
+                    setUsername(res.data.user2.username)
+
                     setUserData2(res.data.user)
                 }
             })
@@ -40,52 +43,38 @@ export default function Dashboard(props, location) {
         // CREATE ROOM/ LOAD MESSAGES
 
         axios.post(`/api/chat/create-room/${props.match.params.uid1}/${props.match.params.uid2}`)
-            .then(res => console.log(res.data))
-            .catch(err => console.log(err))
+            .then(res => {
+                console.log(res.data)
+                setRoom(res.data)
+                axios.get(`/api/chat/load-messages/${res.data}`)
+                    .then((res) => {
+                        res.data[0].messages.map((msg) => {
+                            setMessages((messages) => ([...messages, msg]))
 
-        axios.get(`/api/chat/load-messages/${props.match.params.uid1}/${props.match.params.uid2}`)
-            .then((res) => {
-                res.data[0].messages.map((msg) => {
-                    setMessages((messages) => ([...messages, msg]))
-
-                    return 0
-                })
+                            return 0
+                        })
+                    })
+                    .catch(err => console.log(err))
             })
             .catch(err => console.log(err))
+
+
 
     }, [])
 
     useEffect(() => {
-        let name = 'You'
-        let room = props.match.params.uid1 + props.match.params.uid2
-
         socket = io(ENDPOINT);
 
-        setRoom(room)
-        setUsername(name)
+        if (room.length > 1 && username.length > 1) {
+            console.log('test...', username, room, room.length)
+            socket.emit('join', { username, room }, (error) => {
+                if (error) {
+                    alert(error);
+                }
+            })
+        }
 
-        socket.emit('join', { name, room }, (error) => {
-            if (error) {
-                alert(error);
-            }
-        })
-
-        // let msgs = document.getElementById('messages')
-        // msgs.innerHTML = ''
-
-        // messages.map((data)=> {
-        //     let messages = document.getElementById('messages')
-
-        //     let message = document.createElement('div')
-        //     message.setAttribute('class', 'chat-message')
-        //     message.textContent = data.name+': '+data.message
-
-        //     messages.appendChild(message)
-
-        //     return 0
-        // })
-
-    }, [ENDPOINT, location.search])
+    }, [ENDPOINT, location.search, room, username])
 
     useEffect(() => {
 
@@ -127,7 +116,7 @@ export default function Dashboard(props, location) {
             <div className="dasboard">
                 <Link to='/' className="back-home">Go Back Home</Link>
                 <div className="top-bar">
-                    <p>User: {userdata2.username}</p>
+                    <p>User: {props.match.params.uid1 === props.match.params.uid2 ? 'You' : userdata2.username}</p>
                 </div>
 
                 <div className="contact-list">
