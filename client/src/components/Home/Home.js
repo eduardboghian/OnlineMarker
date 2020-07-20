@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -46,6 +48,7 @@ export default function NavTabs() {
   const [filtrated, setFilt] = useState([])
   const [filterValue, setFilter] = useState('')
   const [menu, showMenu] = useState(false)
+  const [valut, setValut] = useState('EUR')
 
   useEffect(() => {
     axios.get('/api/product/get')
@@ -125,15 +128,41 @@ export default function NavTabs() {
 
       <Categories filterCards={filterCards} />
 
-      <h3 style={{
+      <div style={{
         width: '80%',
         margin: '30px 10% 0'
-      }}><CheckCircleIcon className='check-mark' fontSize={"large"} /> Anunturi Promovate</h3>
+      }}>
+        <h3 style={{
+          width: '60%',
+          margin: '0 !important',
+          float: 'left'
+
+        }}><CheckCircleIcon className='check-mark' fontSize={"large"} /> Anunturi Promovate</h3>
+
+        <Select
+          labelId="demo-simple-select-outlined-label"
+          id="demo-simple-select-outlined"
+          value={valut}
+          onChange={e => setValut(e.target.value)}
+          label="valut"
+          style={{
+            width: '20%',
+            height: '42px',
+            backgroundColor: '#fff',
+            borderRadius: '4px',
+            paddingLeft: '10px',
+            float: 'right'
+          }}
+        >
+          <MenuItem value={'EUR'}>Euro</MenuItem>
+          <MenuItem value={'RON'}>Ron</MenuItem>
+        </Select>
+      </div>
 
       <div className="home-wr">
         {
           filtrated.map((prod, i) => {
-            return prod.promovated ? <CardItem data={prod} key={i} /> : null
+            return prod.promovated ? <CardItem data={prod} valut={valut} key={i} /> : null
           })
         }
 
@@ -148,7 +177,7 @@ export default function NavTabs() {
 
         {
           filtrated.map((prod, i) => {
-            return <CardItem data={prod} key={i} />
+            return <CardItem data={prod} valut={valut} key={i} />
           })
         }
       </div>

@@ -21,10 +21,16 @@ export default function CardItem(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false)
 
+  const convertToRon = (value) => {
+    let newValue = isNaN(parseFloat(value)) ? 0 : parseFloat(value)
+    newValue = newValue * 4.8
+    return newValue.toString()
+  }
+
   return (
     <Card
       className={classes.root}
-      style={{ margin: '20px', position: 'relative', backgroundColor: '#fff' }}
+      style={{ margin: '15px', position: 'relative', backgroundColor: '#fff' }}
       onClick={e => window.location.href = `/card/${props.data._id}`}
     >
       <CardHeader
@@ -42,8 +48,8 @@ export default function CardItem(props) {
           {props.data.shortDescription}
         </Typography>
       </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="Location">
+      <CardActions disableSpacing className='location-sign'>
+        <IconButton aria-label="Location" >
           <LocationOnIcon style={{ color: 'red' }} />
         </IconButton>
         <Typography style={{ opacity: '.6' }} > {props.data.location} </Typography>
@@ -54,7 +60,10 @@ export default function CardItem(props) {
             marginRight: '10%',
             fontSize: '15px',
             borderBottom: '1px solid #777'
-          }}> {new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(props.data.price)}</Typography>
+          }}> {props.valut === 'EUR' ?
+            new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(props.data.price) :
+            new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'RON' }).format(convertToRon(props.data.price))
+          }</Typography>
       </CardActions>
     </Card>
   );
@@ -63,7 +72,7 @@ export default function CardItem(props) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    maxWidth: 350,
     margin: '0 4px'
   },
   media: {

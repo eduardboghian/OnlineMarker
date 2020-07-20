@@ -36,7 +36,7 @@ export default function SeeProduct() {
       margin: '50px 0 0',
       backgroundColor: '#f0f0f0',
       width: '99.2vw',
-      height: '200vh',
+      height: '1800px',
       position: 'relative',
     }}>
       <TopBar tab={3} />
@@ -68,10 +68,14 @@ export default function SeeProduct() {
           <h4>{data.username}</h4>
         </div>
         <section className='see-phone'><PhoneIcon style={{ marginRight: '10px' }} />{data.phone}</section>
+
         <section
+          style={data.userId === userData._id ? { display: 'none' } : {}}
           className='see-message'
           onClick={e => window.location.href = `/chat/${data.userId}/${userData._id}`}
         ><MessageIcon style={{ marginRight: '10px' }} /> Trimite Mesaj</section>
+
+
         <section className='see-fav'><StarsIcon style={{ marginRight: '10px' }} />Salveaza Anuntul</section>
       </div>
 

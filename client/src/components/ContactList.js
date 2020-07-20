@@ -21,7 +21,7 @@ export default function ContactList({ props, contactList, uid }) {
 
     function redirectHandler(e, uid1, uid2) {
         e.preventDefault()
-        window.location.href = `/dashboard/${uid1}/${uid2}`
+        window.location.href = `/chat/${uid1}/${uid2}`
     }
 
     return (
