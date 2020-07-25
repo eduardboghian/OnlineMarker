@@ -52,11 +52,5 @@ router.put('/add-contact/:uid1/:uid2', async (req, res) => {
     res.status(200).send({ user, user2 })
 })
 
-// DELETE ALL MESSAGES **REMOVE THIS CODE
-
-router.delete('/messages', async (req, res) => {
-    const msgs = await Messages.deleteMany()
-    res.send(msgs)
-})
 
 module.exports = router

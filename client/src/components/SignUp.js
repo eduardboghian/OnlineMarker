@@ -52,9 +52,7 @@ export default function SignUp() {
     e.preventDefault()
     Axios.post('/api/register', { userData })
       .then(res => {
-        console.log(res)
         if (res.status === 200) {
-          console.log(res.status)
           window.location.href = '/sign-in'
         }
       })

@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import AppBar from '@material-ui/core/AppBar';
+import Grid from '@material-ui/core/Grid';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import jwt from 'jsonwebtoken'
 
 import Search from './Search'
-import CardItem from './Card';
+import CardItem from './Card'
+import Location from '../Location'
 import Footer from '../Footer'
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import Categories from './Categories'
 import '../../css/Home.css'
 import axios from 'axios'
@@ -45,11 +48,15 @@ export default function NavTabs() {
   const [userData, setUserData] = useState({})
   const [userId, setId] = useState('')
   const [products, setProducts] = useState([])
-  const [showButton, setButton] = useState(false)
   const [filtrated, setFilt] = useState([])
   const [filterValue, setFilter] = useState('')
   const [menu, showMenu] = useState(false)
   const [valut, setValut] = useState('EUR')
+  const [priceFiler, setPriceFilter] = useState({
+    priceMin: 0,
+    priceMax: 9999999999
+  })
+  const [location, setLocation] = useState('')
 
   useEffect(() => {
     axios.get('/api/product/get')
@@ -66,6 +73,23 @@ export default function NavTabs() {
     }
   }, [])
 
+  useEffect(() => {
+    let prods = [...products]
+    if (valut === 'EUR') {
+      prods = prods.filter(item => parseFloat(item.price) > priceFiler.priceMin)
+      prods = prods.filter(item => parseFloat(item.price) < priceFiler.priceMax)
+    } else {
+      prods = prods.filter(item => parseFloat(item.price) * 4.8 > priceFiler.priceMin)
+      prods = prods.filter(item => parseFloat(item.price) * 4.8 < priceFiler.priceMax)
+    }
+    setFilt(prods)
+    if (priceFiler.priceMax === '' && priceFiler.priceMax) setFilt(products)
+  }, [priceFiler])
+
+  useEffect(() => {
+
+  }, [location])
+
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
@@ -73,6 +97,10 @@ export default function NavTabs() {
   const handleLogout = () => {
     localStorage.removeItem('token-market')
     window.location.href = '/'
+  }
+
+  const newProduct = () => {
+
   }
 
   const filterCards = (filter) => {
@@ -130,6 +158,41 @@ export default function NavTabs() {
 
       <Categories filterCards={filterCards} />
 
+      <div className="filters">
+        <div className="pret">
+          Pret ({valut}):
+          <Grid item xs={5} style={{ margin: '0 10px' }}>
+            <TextField
+              variant="outlined"
+              required
+              fullWidth
+              id="pretmin"
+              rows={15}
+              label="Pret Min"
+              name="PretMin"
+              onChange={e => { setPriceFilter({ ...priceFiler, priceMin: e.target.value }) }}
+            />
+          </Grid> -
+          <Grid item xs={5} style={{ margin: '0 10px' }}>
+            <TextField
+              variant="outlined"
+              required
+              fullWidth
+              id="pretmax"
+              rows={15}
+              label="Pret Max"
+              name="PretMax"
+              onChange={e => { setPriceFilter({ ...priceFiler, priceMax: e.target.value }) }}
+            />
+          </Grid>
+        </div>
+
+        <div className="locatie">
+          <p style={{ margin: '0 10px' }}>Locatie:</p>
+          <Location setNewProduct={newProduct} />
+        </div>
+      </div >
+
       <div style={{
         width: '80%',
         margin: '30px 10% 0'
@@ -184,6 +247,6 @@ export default function NavTabs() {
         }
       </div>
       <Footer />
-    </div>
+    </div >
   );
 }

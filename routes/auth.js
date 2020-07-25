@@ -26,6 +26,7 @@ router.post('/login', async (req, res) => {
     location: user.location,
     phoneNuber: user.phoneNuber
   }, process.env.TOKEN_SECRET)
+
   res.header('authToken', token).send('logged in')
 })
 

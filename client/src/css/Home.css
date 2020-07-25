@@ -68,3 +68,38 @@
 .location-sign button {
   padding-right: 0 !important;
 }
+
+.filters {
+  width: 80%;
+  margin: 10px 10% 0; 
+  height: 60px;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.404);
+  display: flex;
+  flex-direction: row;
+  padding: 5px 20px;
+  color: #00000080;
+  font-weight: bold;
+}
+
+.pret {
+  display: flex;
+  flex-direction: row;
+}
+
+.locatie {
+  margin-left: 50px;
+  display: flex;
+  flex-direction: row;
+}
+
+.filters div {
+  line-height: 50px;
+}
+
+.filters input {
+  height: 40px !important;
+  padding: 0 !important;
+  line-height: 40px;
+  margin: 10px 10px 0;
+}

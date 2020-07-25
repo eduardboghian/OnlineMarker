@@ -24,16 +24,21 @@ export default function SeeProduct() {
     let id = window.location.pathname.split('/')
     id = id[id.length - 1]
 
-    setUserData(jwt.verify(localStorage.getItem('token-market'), 'jwtSecret'))
+    if (localStorage.getItem('token-market')) {
+      setUserData(jwt.verify(localStorage.getItem('token-market'), 'jwtSecret'))
+    }
 
     axios.get(`/api/product/get/${id}`)
-      .then(res => setData(res.data))
+      .then(res => {
+        setData(res.data)
+        console.log(res)
+      })
       .catch(err => console.error(err))
   }, [])
 
   return (
     <div style={{
-      margin: '50px 0 0',
+      margin: '70px 0 0',
       backgroundColor: '#f0f0f0',
       width: '99.2vw',
       height: '1800px',
@@ -41,8 +46,8 @@ export default function SeeProduct() {
     }}>
       <TopBar tab={3} />
 
-      <div className="product-wr">
-        <h3>{data.name}</h3>
+      <div className="product-wr" >
+        <h3 >{data.name}</h3>
 
         <div className="location">
           <IconButton aria-label="Location">
