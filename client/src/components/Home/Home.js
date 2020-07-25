@@ -87,7 +87,12 @@ export default function NavTabs() {
   }, [priceFiler])
 
   useEffect(() => {
+    let prods = [...products]
 
+    prods = prods.filter(item => location.includes(item.location))
+
+    setFilt(prods)
+    if (location === '') setFilt(products)
   }, [location])
 
   const handleChange = (event, newValue) => {
@@ -99,8 +104,8 @@ export default function NavTabs() {
     window.location.href = '/'
   }
 
-  const newProduct = () => {
-
+  const newProduct = (value) => {
+    setLocation(value.location)
   }
 
   const filterCards = (filter) => {
