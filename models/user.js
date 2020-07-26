@@ -7,7 +7,8 @@ const userSchema = new mongoose.Schema({
   location: String,
   phoneNumber: String,
   profilePicture: String,
-  contactList: Array
+  contactList: Array,
+  favList: Array
 })
 
 module.exports.User = mongoose.model('users', userSchema, 'users')

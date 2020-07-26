@@ -153,7 +153,11 @@ export default function NavTabs() {
       </AppBar>
 
       <section className="user-menu" style={menu ? {} : { display: 'none' }}>
-        <button className="sign-out-btn" style={{ backgroundColor: '#fff', color: '#000' }}>Anunturi Favorite</button>
+        <button
+          className="sign-out-btn"
+          style={{ backgroundColor: '#fff', color: '#000' }}
+          onClick={e => window.location.href = '/my-fav'}
+        >Anunturi Favorite</button>
         <button
           className="sign-out-btn"
           onClick={e => window.location.href = '/my-products'}

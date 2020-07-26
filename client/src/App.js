@@ -8,6 +8,7 @@ import AddProduct from './components/AddProduct/AddProduct'
 import SeeProduct from './components/SeeProduct/SeeProduct'
 import Messages from './components/DashboardComp'
 import MyProducts from './components/MyProducts'
+import MyFav from './components/MyFav'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path='/sign-up' component={SignUp} />
       <Route path='/card/:id' component={SeeProduct} />
       <Route path='/my-products' component={MyProducts} />
+      <Route path='/my-fav' component={MyFav} />
       <Route path='/add-product' component={AddProduct} />
       <Route path='/chat/:uid1/:uid2' component={Messages} />
     </Router>

@@ -10,6 +10,12 @@ router.get('/get-users', async (req, res) => {
   res.send(users)
 })
 
+router.get('/get/:id', async (req, res) => {
+  let users = await User.findOne({ _id: req.params.id })
+
+  res.send(users)
+})
+
 router.post('/login', async (req, res) => {
   const { email, password } = req.body
 
@@ -46,6 +52,13 @@ router.post('/register', async (req, res) => {
   newUser = await newUser.save()
 
   res.status(200).send(newUser)
+})
+
+router.post('/add-fav', async (req, res) => {
+
+  let user = await User.findOneAndUpdate({ _id: req.body.uid }, { $push: { favList: req.body.pid } }, { new: true })
+
+  res.send(user)
 })
 
 module.exports = router

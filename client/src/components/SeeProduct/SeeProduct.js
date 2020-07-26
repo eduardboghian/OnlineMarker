@@ -36,6 +36,13 @@ export default function SeeProduct() {
       .catch(err => console.error(err))
   }, [])
 
+  const addFav = () => {
+    axios.post('/api/add-fav', {
+      uid: userData._id,
+      pid: data._id
+    })
+  }
+
   return (
     <div style={{
       margin: '70px 0 0',
@@ -81,7 +88,10 @@ export default function SeeProduct() {
         ><MessageIcon style={{ marginRight: '10px' }} /> Trimite Mesaj</section>
 
 
-        <section className='see-fav'><StarsIcon style={{ marginRight: '10px' }} />Salveaza Anuntul</section>
+        <section
+          className='see-fav'
+          onClick={e => addFav()}
+        ><StarsIcon style={{ marginRight: '10px' }} />Salveaza Anuntul</section>
       </div>
 
       <div className="verifica-wr" style={data.category === 'Servicii-Afaceri' ? { display: 'none' } : {}} >
