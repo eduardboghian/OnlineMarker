@@ -97,10 +97,10 @@ router.post('/add', upload.single('file'), async (req, res) => {
 })
 
 
-// router.post('/upload', upload.single('file'), async (req, res) => {
-//   console.log(req.file)
-//   console.log(req.body)
-//   res.send(req.file)
-// })
+router.delete('/delete', async (req, res) => {
+  await Product.findOneAndDelete({ _id: req.body.id })
+
+  res.send('product deleted')
+})
 
 module.exports = router

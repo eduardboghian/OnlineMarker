@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import TopBar from '../components/TopBar'
+import Footer from '../components/Footer'
 import Card from './Home/Card'
 
 import jwt from 'jsonwebtoken'
@@ -37,17 +38,32 @@ export default function MyProducts() {
     }
   }, [userId, dbCards])
 
+  const deleteProduct = (id) => {
+    axios.delete('/api/product/delete', {
+      data: { id }
+    })
+  }
+
   return (
-    <div style={{ backgroundColor: '#f4f4f4' }}>
+    <div style={{
+      backgroundColor: '#f4f4f4',
+      height: '150vh',
+    }}>
       <TopBar />
       <div className="mele-wr">
         <h1>Anunturile mele</h1>
         <div className="mycards-wr">
           {cards.length > 0 ? cards.map((card, i) => {
-            return <div key={i}>
-              <div>X</div>
+            return <div className='mycard' key={i}>
+
+              <div
+                className='delete-btn'
+                onClick={e => deleteProduct(card._id)}
+              >X</div>
+
               <Card data={card} valut={'EUR'} />
-              <div className='promoveaza'>Promoveaza Anuntul</div>
+
+              {card.promovated ? null : <div className='promoveaza'>Promoveaza Anuntul</div>}
             </div>
           }) : <div className='nu-sunt'>Nu aveti niciun anunt!</div>}
         </div>

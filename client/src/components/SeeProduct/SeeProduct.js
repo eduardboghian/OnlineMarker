@@ -95,7 +95,7 @@ export default function SeeProduct() {
 
       <div className="sent-message-wr">
         <h1>Trimite Mesaj</h1>
-        <form action="#" method='POST'>
+        <form action={`https://formspree.io/${userData.email}`} method='POST'>
           <label className='imp'>
             <p>Name:</p>
             <input type="text" name="name" />
