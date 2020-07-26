@@ -173,7 +173,7 @@ export default function NavTabs() {
 
       <div className="filters">
         <div className="pret">
-          Pret ({valut}):
+          <p className='pret-wr'>Pret ({valut}):</p>
           <Grid item xs={5} style={{ margin: '0 10px' }}>
             <TextField
               variant="outlined"
