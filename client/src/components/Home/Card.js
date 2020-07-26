@@ -2,16 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import BeenhereIcon from '@material-ui/icons/Beenhere';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
 
 import moment from 'moment'
@@ -19,7 +16,6 @@ import '../../css/Home.css'
 
 export default function CardItem(props) {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false)
 
   const convertToRon = (value) => {
     let newValue = isNaN(parseFloat(value)) ? 0 : parseFloat(value)
